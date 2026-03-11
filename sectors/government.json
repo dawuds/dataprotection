@@ -1,0 +1,27 @@
+{
+  "_meta": { "title": "Government Data Protection", "sourceType": "constructed-indicative" },
+  "sector": "Government",
+  "regulatoryLandscape": [
+    { "regulation": "Official Secrets Act 1972 (OSA)", "jurisdiction": "Malaysia", "relevantSections": ["Classification of official documents and information"] },
+    { "regulation": "MyGovCloud Policy", "jurisdiction": "Malaysia", "relevantSections": ["Cloud security requirements for government data"] },
+    { "regulation": "MAMPU ICT Security Policy (RAKKSSA)", "jurisdiction": "Malaysia", "relevantSections": ["Government ICT security standards"] }
+  ],
+  "classificationSystem": {
+    "description": "Malaysian government classification under the Official Secrets Act 1972",
+    "levels": [
+      { "level": "TERBUKA", "english": "Open", "handling": "No restrictions. Can be shared publicly.", "encryption": "None required", "disposal": "Standard disposal" },
+      { "level": "TERHAD", "english": "Restricted", "handling": "Internal government use only. Not for public disclosure.", "encryption": "Encryption recommended for electronic transmission", "disposal": "Secure deletion" },
+      { "level": "SULIT", "english": "Confidential", "handling": "Access limited to authorized personnel. Logged access.", "encryption": "Mandatory encryption at rest and in transit", "disposal": "Certified destruction required" },
+      { "level": "RAHSIA", "english": "Secret", "handling": "Strict need-to-know. Personal accountability for each copy.", "encryption": "Strong encryption mandatory. Government-approved algorithms.", "disposal": "Witnessed destruction with certificate" },
+      { "level": "RAHSIA BESAR", "english": "Top Secret", "handling": "Highest protection. Named distribution list. Continuous tracking.", "encryption": "Government-approved encryption with HSM key management", "disposal": "Witnessed destruction by authorized committee" }
+    ]
+  },
+  "myGovCloudRequirements": [
+    { "requirement": "Data sovereignty", "description": "Government data must be stored within Malaysia. Cloud infrastructure must be within Malaysian borders." },
+    { "requirement": "Encryption", "description": "All government data in cloud must be encrypted at rest and in transit using MAMPU-approved algorithms." },
+    { "requirement": "Key management", "description": "Encryption keys for SULIT and above must remain under government control (HYOK model)." },
+    { "requirement": "Access controls", "description": "Multi-factor authentication for access to government cloud resources. Security clearance verification." },
+    { "requirement": "Audit logging", "description": "Comprehensive audit logging of all access to government data with 7-year retention." }
+  ],
+  "sourceType": "constructed-indicative"
+}

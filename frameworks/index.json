@@ -1,0 +1,50 @@
+{
+  "_meta": {
+    "title": "Data Protection Framework Overview",
+    "version": "1.0.0",
+    "sourceType": "constructed-indicative",
+    "lastUpdated": "2025-01-15"
+  },
+  "frameworks": [
+    {
+      "id": "nist-800-53-sc",
+      "name": "NIST SP 800-53 Rev. 5 — SC Family",
+      "fullName": "System and Communications Protection",
+      "description": "The SC family provides controls for protecting system communications and information at rest, in transit, and during processing. Covers cryptographic protection, transmission confidentiality, and boundary protection.",
+      "version": "Rev. 5",
+      "controlCount": 45,
+      "dataFile": "nist-800-53-sc.json",
+      "sourceType": "constructed-indicative"
+    },
+    {
+      "id": "nist-800-171",
+      "name": "NIST SP 800-171 Rev. 2",
+      "fullName": "Protecting Controlled Unclassified Information (CUI)",
+      "description": "Security requirements for protecting CUI in nonfederal systems. The Media Protection and System & Communications Protection families are most relevant to data protection.",
+      "version": "Rev. 2",
+      "controlCount": 28,
+      "dataFile": "nist-800-171.json",
+      "sourceType": "constructed-indicative"
+    },
+    {
+      "id": "pci-dss-data",
+      "name": "PCI DSS v4.0",
+      "fullName": "Payment Card Industry Data Security Standard",
+      "description": "Requirements for protecting cardholder data (CHD) and sensitive authentication data (SAD). Requirements 3, 4, 9, and 12 are most directly relevant to data protection.",
+      "version": "v4.0",
+      "controlCount": 42,
+      "dataFile": "pci-dss-data.json",
+      "sourceType": "constructed-indicative"
+    },
+    {
+      "id": "iso27001-a8",
+      "name": "ISO 27001:2022 Annex A.8",
+      "fullName": "Technological Controls",
+      "description": "Annex A.8 of ISO 27001:2022 covers technological controls including endpoint security, privileged access, information classification restrictions, data masking, DLP, and cryptography.",
+      "version": "2022",
+      "controlCount": 34,
+      "dataFile": "iso27001-a8.json",
+      "sourceType": "constructed-indicative"
+    }
+  ]
+}

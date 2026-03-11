@@ -1,0 +1,70 @@
+{
+  "_meta": {
+    "title": "Data Protection Control Domains",
+    "version": "1.0.0",
+    "sourceType": "constructed-indicative",
+    "lastUpdated": "2025-01-15"
+  },
+  "domains": [
+    {
+      "id": "DCLS",
+      "name": "Data Classification",
+      "description": "Policies, procedures, and controls for classifying data based on sensitivity, value, and regulatory requirements. Includes labeling, handling procedures, and metadata tagging.",
+      "controlCount": 5
+    },
+    {
+      "id": "EART",
+      "name": "Encryption at Rest",
+      "description": "Controls for protecting stored data through encryption including full-disk encryption, database transparent data encryption (TDE), file-level encryption, and key escrow mechanisms.",
+      "controlCount": 5
+    },
+    {
+      "id": "EITR",
+      "name": "Encryption in Transit",
+      "description": "Controls for protecting data during transmission including TLS configuration, certificate management, VPN tunnels, API encryption, and email encryption standards.",
+      "controlCount": 5
+    },
+    {
+      "id": "EIUS",
+      "name": "Encryption in Use",
+      "description": "Emerging controls for protecting data during processing including confidential computing, secure enclaves, homomorphic encryption, and in-memory encryption.",
+      "controlCount": 4
+    },
+    {
+      "id": "DLPS",
+      "name": "Data Loss Prevention",
+      "description": "Controls for detecting and preventing unauthorized data exfiltration across network, endpoint, cloud, and email channels. Includes policy tuning and incident response.",
+      "controlCount": 5
+    },
+    {
+      "id": "KMGT",
+      "name": "Key Management",
+      "description": "Controls for the complete cryptographic key lifecycle including generation, distribution, storage, rotation, destruction, HSM management, and BYOK/HYOK models.",
+      "controlCount": 6
+    },
+    {
+      "id": "BKRC",
+      "name": "Backup & Recovery",
+      "description": "Controls for data backup encryption, immutable backup storage, air-gapped copies, recovery testing, and ransomware resilience strategies.",
+      "controlCount": 5
+    },
+    {
+      "id": "DBSC",
+      "name": "Database Security",
+      "description": "Controls for database activity monitoring, access controls, privilege management, virtual patching, and database-specific encryption and masking.",
+      "controlCount": 5
+    },
+    {
+      "id": "DMTK",
+      "name": "Data Masking & Tokenization",
+      "description": "Controls for static and dynamic data masking, format-preserving tokenization, test data management, and de-identification techniques.",
+      "controlCount": 5
+    },
+    {
+      "id": "SDSP",
+      "name": "Secure Disposal",
+      "description": "Controls for secure media sanitization, crypto-shredding, certificate of destruction, cloud data deletion verification, and end-of-life data management.",
+      "controlCount": 5
+    }
+  ]
+}

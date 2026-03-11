@@ -1,0 +1,11 @@
+{
+  "_meta": { "title": "Data Protection to PDPA (Malaysia) Technical Requirements Cross-Reference", "sourceType": "constructed-indicative", "note": "Links technical data protection controls to PDPA technical implementation requirements. Full PDPA coverage is in the pdpa-my repo." },
+  "mappings": [
+    { "dpDomain": "DCLS", "pdpaPrinciples": ["Security Principle (S9)"], "technicalLink": "Classification supports identifying personal data requiring PDPA protection" },
+    { "dpDomain": "EART", "pdpaPrinciples": ["Security Principle (S9)"], "technicalLink": "Encryption at rest protects personal data as required by security principle" },
+    { "dpDomain": "EITR", "pdpaPrinciples": ["Security Principle (S9)", "Transfer Principle (S129)"], "technicalLink": "Encryption in transit for cross-border personal data transfers" },
+    { "dpDomain": "DLPS", "pdpaPrinciples": ["Security Principle (S9)"], "technicalLink": "DLP prevents unauthorized disclosure of personal data" },
+    { "dpDomain": "DMTK", "pdpaPrinciples": ["Security Principle (S9)"], "technicalLink": "Data masking and de-identification support data minimization" },
+    { "dpDomain": "SDSP", "pdpaPrinciples": ["Retention Principle (S10)"], "technicalLink": "Secure disposal supports compliance with retention limits" }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "_meta": { "title": "Sector-Specific Data Protection Requirements", "sourceType": "constructed-indicative" },
+  "sectors": [
+    { "id": "financial-services", "name": "Financial Services", "description": "Banking, insurance, and capital markets data protection requirements including BNM RMiT, PCI DSS, and card data security.", "dataFile": "financial-services.json" },
+    { "id": "healthcare", "name": "Healthcare", "description": "Medical data protection including patient records, HL7/FHIR security, diagnostic imaging, and medical device data.", "dataFile": "healthcare.json" },
+    { "id": "government", "name": "Government", "description": "Government data classification (RAHSIA/SULIT), MyGovCloud requirements, and official secrets protection.", "dataFile": "government.json" }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "_meta": { "title": "Encryption Standards & Implementations", "sourceType": "constructed-indicative" },
+  "technology": "Encryption",
+  "description": "Cryptographic protection of data at rest, in transit, and in use using symmetric and asymmetric algorithms, covering implementation patterns for enterprise environments.",
+  "standards": {
+    "symmetric": [
+      { "algorithm": "AES-256-GCM", "use": "Data at rest and in transit", "status": "Recommended", "notes": "NIST-approved, provides both confidentiality and authenticity" },
+      { "algorithm": "AES-256-CBC", "use": "Data at rest (legacy)", "status": "Acceptable", "notes": "Requires separate HMAC for integrity; prefer GCM for new deployments" },
+      { "algorithm": "ChaCha20-Poly1305", "use": "Data in transit (TLS)", "status": "Recommended", "notes": "Excellent performance on devices without AES-NI hardware" }
+    ],
+    "asymmetric": [
+      { "algorithm": "RSA-2048", "use": "Key exchange, signatures", "status": "Minimum acceptable", "notes": "NIST recommends transition to 3072+ by 2030" },
+      { "algorithm": "RSA-4096", "use": "Key exchange, signatures", "status": "Recommended", "notes": "Stronger security margin, performance cost acceptable for key operations" },
+      { "algorithm": "ECDSA P-256", "use": "Digital signatures", "status": "Recommended", "notes": "Smaller keys, faster operations than RSA" },
+      { "algorithm": "X25519", "use": "Key exchange (TLS 1.3)", "status": "Recommended", "notes": "Modern elliptic curve, constant-time implementation" }
+    ],
+    "hashing": [
+      { "algorithm": "SHA-256", "use": "Data integrity, HMAC", "status": "Recommended" },
+      { "algorithm": "SHA-384", "use": "TLS, high-security applications", "status": "Recommended" },
+      { "algorithm": "SHA-3-256", "use": "Alternative hash family", "status": "Acceptable" }
+    ],
+    "postQuantum": [
+      { "algorithm": "CRYSTALS-Kyber (ML-KEM)", "use": "Key encapsulation", "status": "NIST selected (2024)", "notes": "Primary PQC key exchange mechanism" },
+      { "algorithm": "CRYSTALS-Dilithium (ML-DSA)", "use": "Digital signatures", "status": "NIST selected (2024)", "notes": "Primary PQC signature algorithm" }
+    ]
+  },
+  "implementationPatterns": {
+    "atRest": [
+      { "pattern": "Full-Disk Encryption (FDE)", "tools": "BitLocker, FileVault, LUKS", "scope": "Entire disk volume" },
+      { "pattern": "Transparent Data Encryption (TDE)", "tools": "SQL Server TDE, Oracle TDE, PostgreSQL", "scope": "Database files, logs, backups" },
+      { "pattern": "File-Level Encryption", "tools": "Azure RMS, PGP, VeraCrypt", "scope": "Individual files and documents" },
+      { "pattern": "Column-Level Encryption", "tools": "Always Encrypted (SQL Server), Application-level", "scope": "Specific database columns" },
+      { "pattern": "Cloud SSE", "tools": "AWS SSE-S3/SSE-KMS, Azure Storage Encryption, GCP CMEK", "scope": "Cloud storage objects" }
+    ],
+    "inTransit": [
+      { "pattern": "TLS 1.3", "tools": "OpenSSL, BoringSSL, native OS TLS", "scope": "Web, API, database connections" },
+      { "pattern": "mTLS", "tools": "Istio, Envoy, custom PKI", "scope": "Service-to-service communication" },
+      { "pattern": "IPsec VPN", "tools": "StrongSwan, Cisco AnyConnect, WireGuard", "scope": "Site-to-site and remote access" },
+      { "pattern": "S/MIME", "tools": "Outlook, Thunderbird", "scope": "Email encryption" }
+    ]
+  },
+  "malaysianContext": {
+    "bnmRmit": "BNM RMiT S10.46-S10.48 require encryption of confidential data at rest and in transit. AES-256 or equivalent is the minimum standard for financial institutions.",
+    "considerations": ["SIRIM standards alignment", "MyCC certification requirements for government", "Cross-border encryption key management for regional operations"]
+  },
+  "sourceType": "constructed-indicative"
+}

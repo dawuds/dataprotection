@@ -1,0 +1,15 @@
+{
+  "_meta": { "title": "Data Protection to PCI DSS v4.0 Cross-Reference", "sourceType": "constructed-indicative" },
+  "mappings": [
+    { "dpDomain": "DCLS", "pciRequirements": ["9.4.1", "9.4.2", "3.2.1", "12.5.2"], "description": "Classification supports PCI scope definition and media classification" },
+    { "dpDomain": "EART", "pciRequirements": ["3.5.1", "3.5.1.1", "3.5.1.2"], "description": "Encryption at rest directly satisfies PAN rendering requirements" },
+    { "dpDomain": "EITR", "pciRequirements": ["4.2.1", "4.2.1.1", "4.2.2"], "description": "Encryption in transit satisfies transmission encryption requirements" },
+    { "dpDomain": "EIUS", "pciRequirements": ["3.5.1", "3.5.1.1"], "description": "Tokenization as alternative to encryption for PAN protection" },
+    { "dpDomain": "DLPS", "pciRequirements": ["12.5.2"], "description": "DLP supports data flow control and scope maintenance" },
+    { "dpDomain": "KMGT", "pciRequirements": ["3.6.1", "3.6.1.1", "3.6.1.2", "3.6.1.3", "3.6.1.4"], "description": "Key management directly satisfies PCI key management requirements" },
+    { "dpDomain": "BKRC", "pciRequirements": ["3.5.1", "12.10.2"], "description": "Backup encryption and recovery testing" },
+    { "dpDomain": "DBSC", "pciRequirements": ["3.3.1", "3.3.2", "7.2.1", "7.2.2", "10.2.1", "10.6.1"], "description": "Database controls support PAN masking, access control, and audit logging" },
+    { "dpDomain": "DMTK", "pciRequirements": ["3.3.1", "3.5.1", "6.5.1"], "description": "Masking and tokenization support PAN display and test data requirements" },
+    { "dpDomain": "SDSP", "pciRequirements": ["3.1.1", "9.4.6"], "description": "Secure disposal satisfies PAN deletion and media destruction requirements" }
+  ]
+}

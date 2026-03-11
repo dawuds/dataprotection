@@ -1,0 +1,30 @@
+{
+  "_meta": { "title": "Tokenization & Masking Technologies", "sourceType": "constructed-indicative" },
+  "technology": "Tokenization & Data Masking",
+  "description": "Tokenization replaces sensitive data with non-sensitive tokens while masking obscures data for display purposes. Both reduce data exposure without eliminating utility.",
+  "architecture": {
+    "diagram": "[Application] --request--> [Tokenization Service]\n                              |\n                        [Token Vault]\n                     (token <-> original)\n                              |\n                     [HSM / Key Store]\n                              |\n[De-tokenization] <--authorized request-- [Authorized Service]"
+  },
+  "tokenizationTypes": [
+    { "type": "Vault-Based Tokenization", "description": "Token-to-data mapping stored in encrypted vault database", "pros": "No mathematical relationship between token and data", "cons": "Vault is single point of failure, scalability challenges" },
+    { "type": "Vaultless Tokenization", "description": "Token generated algorithmically using encryption (FPE)", "pros": "No vault needed, better scalability", "cons": "Mathematically reversible if key is compromised" },
+    { "type": "Format-Preserving Tokenization", "description": "Token maintains same format/length as original data (e.g., 16-digit PAN stays 16 digits)", "pros": "No schema changes needed, application compatibility", "cons": "Reduced token space, format constraints" }
+  ],
+  "maskingTypes": [
+    { "type": "Static Data Masking (SDM)", "description": "Irreversible masking applied to copies of data for non-production use", "useCase": "Dev/test environments, training, analytics" },
+    { "type": "Dynamic Data Masking (DDM)", "description": "Real-time masking applied at query level based on user role", "useCase": "Production data access control, helpdesk views" },
+    { "type": "On-the-Fly Masking", "description": "Masking applied during data movement (ETL, replication)", "useCase": "Data warehouse loading, cross-environment data transfer" }
+  ],
+  "vendorLandscape": [
+    { "vendor": "Protegrity", "strengths": "Enterprise tokenization, format-preserving, multi-platform" },
+    { "vendor": "Voltage SecureData (Micro Focus/OpenText)", "strengths": "FPE tokenization, integrated with HPE ecosystem" },
+    { "vendor": "Informatica Data Masking", "strengths": "Strong SDM capabilities, ETL integration" },
+    { "vendor": "Delphix", "strengths": "Test data management, virtual data masking" },
+    { "vendor": "Oracle Data Masking and Subsetting", "strengths": "Native Oracle DB integration" }
+  ],
+  "malaysianContext": {
+    "bnmRmit": "BNM RMiT S10.52 requires masking of sensitive data in non-production environments. Tokenization is accepted as a PCI DSS scope reduction mechanism.",
+    "considerations": ["IC number (NRIC) format-preserving tokenization", "Compliance with PDPA de-identification requirements"]
+  },
+  "sourceType": "constructed-indicative"
+}

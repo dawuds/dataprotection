@@ -1,0 +1,14 @@
+{
+  "_meta": { "title": "Data Protection to BNM RMiT Cross-Reference", "sourceType": "constructed-indicative" },
+  "mappings": [
+    { "dpDomain": "DCLS", "rmitSections": ["S10.4", "S10.5"], "description": "Data classification and handling based on sensitivity as required by RMiT" },
+    { "dpDomain": "EART", "rmitSections": ["S10.46", "S10.47"], "description": "Encryption of confidential data at rest including in cloud environments" },
+    { "dpDomain": "EITR", "rmitSections": ["S10.48"], "description": "Encryption of data in transit across networks" },
+    { "dpDomain": "DLPS", "rmitSections": ["S10.55"], "description": "Data leakage prevention across all channels" },
+    { "dpDomain": "KMGT", "rmitSections": ["S10.47"], "description": "Key management and customer control of encryption keys in cloud" },
+    { "dpDomain": "BKRC", "rmitSections": ["S10.62", "S10.63", "S10.64"], "description": "Encrypted backups, offline copies, recovery testing, and ransomware resilience" },
+    { "dpDomain": "DBSC", "rmitSections": ["S10.50", "S10.52"], "description": "Database monitoring and masking requirements" },
+    { "dpDomain": "DMTK", "rmitSections": ["S10.52"], "description": "Non-production data masking requirements" },
+    { "dpDomain": "SDSP", "rmitSections": ["S10.65"], "description": "Cloud data deletion verification" }
+  ]
+}

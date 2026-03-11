@@ -1,0 +1,42 @@
+{
+  "_meta": { "title": "Key Management Systems & HSM", "sourceType": "constructed-indicative" },
+  "technology": "Key Management",
+  "description": "Cryptographic key lifecycle management including generation, distribution, storage, rotation, and destruction using HSMs, cloud KMS, and enterprise key management platforms.",
+  "architecture": {
+    "layers": ["Hardware Security Modules (HSM)", "Cloud KMS (AWS KMS, Azure Key Vault, GCP Cloud KMS)", "Enterprise Key Management Platform", "Application-Level Key Management", "Key Escrow & Recovery"],
+    "diagram": "                    [Enterprise Key Manager]\n                    /          |          \\\n           [On-Prem HSM]  [Cloud KMS]  [Key Escrow]\n              |              |              |\n         [Master Keys]  [CMK/BYOK]    [Recovery Keys]\n              |              |              |\n         [Data Keys]    [DEK/Envelope]  [Backup Keys]\n              |              |\n        [Encrypted Data] [Cloud Data]"
+  },
+  "hsmOptions": [
+    { "product": "Thales Luna Network HSM", "fipsLevel": "FIPS 140-3 Level 3", "type": "Network-attached", "notes": "Industry-leading HSM, wide integration ecosystem" },
+    { "product": "Entrust nShield Connect", "fipsLevel": "FIPS 140-2 Level 3", "type": "Network-attached", "notes": "Strong CodeSafe (code execution in HSM) capabilities" },
+    { "product": "AWS CloudHSM", "fipsLevel": "FIPS 140-2 Level 3", "type": "Cloud-hosted", "notes": "Single-tenant HSM in AWS, supports BYOK" },
+    { "product": "Azure Managed HSM", "fipsLevel": "FIPS 140-2 Level 3", "type": "Cloud-hosted", "notes": "Fully managed HSM pool for Azure Key Vault" },
+    { "product": "Google Cloud HSM", "fipsLevel": "FIPS 140-2 Level 3", "type": "Cloud-hosted", "notes": "Backed by Cloud EKM for key management" }
+  ],
+  "keyLifecycle": [
+    { "phase": "Generation", "description": "Create keys using FIPS-validated RNG in HSM or trusted environment", "nistRef": "NIST SP 800-133" },
+    { "phase": "Distribution", "description": "Securely transport keys using key wrapping (KEK) or secure channels", "nistRef": "NIST SP 800-57 Part 1" },
+    { "phase": "Storage", "description": "Store keys in HSM or encrypted key store, separated from encrypted data", "nistRef": "NIST SP 800-57 Part 1" },
+    { "phase": "Use", "description": "Access keys through authorized APIs with audit logging", "nistRef": "NIST SP 800-57 Part 1" },
+    { "phase": "Rotation", "description": "Replace keys at defined crypto-periods or upon compromise", "nistRef": "NIST SP 800-57 Part 1" },
+    { "phase": "Revocation", "description": "Revoke compromised or superseded keys, update CRL/OCSP", "nistRef": "NIST SP 800-57 Part 2" },
+    { "phase": "Destruction", "description": "Securely destroy keys using zeroization or crypto-shredding", "nistRef": "NIST SP 800-57 Part 1" }
+  ],
+  "byokHyok": {
+    "byok": {
+      "description": "Bring Your Own Key — customer generates key and imports to cloud provider KMS",
+      "benefits": ["Customer controls key generation", "Key never exists in plaintext outside customer environment", "Supports compliance requirements for key custody"],
+      "limitations": ["Key import mechanism varies by provider", "Provider still uses key for encryption operations"]
+    },
+    "hyok": {
+      "description": "Hold Your Own Key — customer retains key in own HSM, cloud requests key for each operation",
+      "benefits": ["Maximum customer control", "Key never stored in cloud provider systems", "Supports sovereign data requirements"],
+      "limitations": ["Higher latency for encryption operations", "Availability dependency on customer key service", "Limited provider support"]
+    }
+  },
+  "malaysianContext": {
+    "bnmRmit": "BNM RMiT S10.47 requires financial institutions to maintain control over encryption keys for data stored in cloud environments. BYOK is recommended for sensitive data.",
+    "considerations": ["Key sovereignty — keys for Malaysian customer data should be stored within Malaysia or under Malaysian entity control", "BNM expects documented key management procedures aligned with international standards"]
+  },
+  "sourceType": "constructed-indicative"
+}

@@ -1,0 +1,22 @@
+{
+  "_meta": { "title": "Data Protection to NIST CSF 2.0 Cross-Reference", "sourceType": "constructed-indicative" },
+  "mappings": [
+    { "dpControl": "DCLS-01", "csfSubcategories": ["GV.OC-01", "ID.AM-07"], "similarity": "high" },
+    { "dpControl": "DCLS-04", "csfSubcategories": ["ID.AM-01", "ID.AM-02", "ID.AM-05"], "similarity": "high" },
+    { "dpControl": "EART-01", "csfSubcategories": ["PR.DS-01", "PR.DS-02"], "similarity": "high" },
+    { "dpControl": "EART-02", "csfSubcategories": ["PR.DS-01"], "similarity": "high" },
+    { "dpControl": "EITR-01", "csfSubcategories": ["PR.DS-02"], "similarity": "high" },
+    { "dpControl": "EITR-02", "csfSubcategories": ["PR.DS-02", "PR.AA-03"], "similarity": "high" },
+    { "dpControl": "DLPS-01", "csfSubcategories": ["PR.DS-01", "PR.DS-02", "DE.CM-01"], "similarity": "high" },
+    { "dpControl": "KMGT-01", "csfSubcategories": ["PR.DS-01", "PR.DS-02"], "similarity": "medium" },
+    { "dpControl": "KMGT-03", "csfSubcategories": ["PR.DS-01"], "similarity": "medium" },
+    { "dpControl": "BKRC-01", "csfSubcategories": ["PR.DS-11"], "similarity": "high" },
+    { "dpControl": "BKRC-04", "csfSubcategories": ["PR.DS-11", "RC.RP-01"], "similarity": "high" },
+    { "dpControl": "BKRC-05", "csfSubcategories": ["RC.RP-01", "RS.MI-01"], "similarity": "high" },
+    { "dpControl": "DBSC-01", "csfSubcategories": ["DE.CM-01", "DE.CM-03"], "similarity": "medium" },
+    { "dpControl": "DBSC-02", "csfSubcategories": ["PR.AA-01", "PR.AA-05"], "similarity": "high" },
+    { "dpControl": "DMTK-01", "csfSubcategories": ["PR.DS-01"], "similarity": "medium" },
+    { "dpControl": "SDSP-01", "csfSubcategories": ["PR.DS-03"], "similarity": "high" },
+    { "dpControl": "SDSP-05", "csfSubcategories": ["PR.DS-03"], "similarity": "high" }
+  ]
+}

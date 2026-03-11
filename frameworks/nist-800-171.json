@@ -1,0 +1,71 @@
+{
+  "_meta": {
+    "title": "NIST SP 800-171 Rev. 2 — CUI Protection Requirements",
+    "source": "NIST Special Publication 800-171 Revision 2",
+    "sourceType": "constructed-indicative",
+    "description": "Security requirements for protecting CUI relevant to data protection"
+  },
+  "families": [
+    {
+      "id": "3.1",
+      "name": "Access Control",
+      "requirements": [
+        { "id": "3.1.1", "title": "Limit system access to authorized users", "description": "Limit information system access to authorized users, processes acting on behalf of authorized users, or devices (including other information systems)." },
+        { "id": "3.1.2", "title": "Limit system access to authorized functions", "description": "Limit information system access to the types of transactions and functions that authorized users are permitted to execute." }
+      ]
+    },
+    {
+      "id": "3.3",
+      "name": "Audit and Accountability",
+      "requirements": [
+        { "id": "3.3.1", "title": "Create and retain system audit logs", "description": "Create and retain system audit logs and records to the extent needed to enable the monitoring, analysis, investigation, and reporting of unlawful or unauthorized system activity." }
+      ]
+    },
+    {
+      "id": "3.4",
+      "name": "Configuration Management",
+      "requirements": [
+        { "id": "3.4.1", "title": "Establish and maintain baseline configurations", "description": "Establish and maintain baseline configurations and inventories of organizational information systems." }
+      ]
+    },
+    {
+      "id": "3.6",
+      "name": "Incident Response",
+      "requirements": [
+        { "id": "3.6.1", "title": "Establish incident-handling capability", "description": "Establish an operational incident-handling capability for organizational information systems that includes adequate preparation, detection, analysis, containment, recovery, and user response activities." },
+        { "id": "3.6.3", "title": "Test incident response capability", "description": "Test the organizational incident response capability." }
+      ]
+    },
+    {
+      "id": "3.8",
+      "name": "Media Protection",
+      "requirements": [
+        { "id": "3.8.1", "title": "Protect and control CUI media", "description": "Protect (i.e., physically control and securely store) information system media containing CUI, both paper and digital." },
+        { "id": "3.8.3", "title": "Sanitize CUI media before disposal", "description": "Sanitize or destroy information system media containing CUI before disposal or release for reuse." },
+        { "id": "3.8.4", "title": "Mark CUI media with distribution markings", "description": "Mark media with necessary CUI markings and distribution limitations." },
+        { "id": "3.8.5", "title": "Control access to CUI media", "description": "Control access to media containing CUI and maintain accountability for media during transport." },
+        { "id": "3.8.7", "title": "Control removable media", "description": "Control the use of removable media on information system components." },
+        { "id": "3.8.9", "title": "Protect backup CUI", "description": "Protect the confidentiality of backup CUI at storage locations." }
+      ]
+    },
+    {
+      "id": "3.13",
+      "name": "System and Communications Protection",
+      "requirements": [
+        { "id": "3.13.1", "title": "Monitor and control communications", "description": "Monitor, control, and protect organizational communications at the external boundaries and key internal boundaries of information systems." },
+        { "id": "3.13.2", "title": "Employ architectural designs for security", "description": "Employ architectural designs, software development techniques, and systems engineering principles that promote effective information security within organizational information systems." },
+        { "id": "3.13.8", "title": "Implement cryptographic protection for CUI in transit", "description": "Implement cryptographic mechanisms to prevent unauthorized disclosure of CUI during transmission unless otherwise protected by alternative physical safeguards." },
+        { "id": "3.13.10", "title": "Establish and manage cryptographic keys", "description": "Establish and manage cryptographic keys for cryptography employed in organizational information systems." },
+        { "id": "3.13.11", "title": "Employ FIPS-validated cryptography", "description": "Employ FIPS-validated cryptography when used to protect the confidentiality of CUI." },
+        { "id": "3.13.16", "title": "Protect CUI at rest", "description": "Protect the confidentiality of CUI at rest." }
+      ]
+    },
+    {
+      "id": "3.14",
+      "name": "System and Information Integrity",
+      "requirements": [
+        { "id": "3.14.1", "title": "Identify and remediate flaws", "description": "Identify, report, and correct information and information system flaws in a timely manner." }
+      ]
+    }
+  ]
+}

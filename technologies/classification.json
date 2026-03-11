@@ -1,0 +1,39 @@
+{
+  "_meta": { "title": "Data Classification Frameworks", "sourceType": "constructed-indicative" },
+  "technology": "Data Classification",
+  "description": "Frameworks and tools for classifying data based on sensitivity, regulatory requirements, and business value, enabling appropriate protection controls for each classification level.",
+  "classificationLevels": [
+    { "level": "Public", "description": "Information intended for public disclosure. No confidentiality impact if disclosed.", "examples": ["Marketing materials", "Published annual reports", "Public website content"], "controls": "Basic integrity controls only" },
+    { "level": "Internal", "description": "Information for internal use. Minor business impact if disclosed externally.", "examples": ["Internal policies", "Org charts", "General business communications"], "controls": "Access control, basic DLP monitoring" },
+    { "level": "Confidential", "description": "Sensitive business or personal information. Significant impact if disclosed.", "examples": ["Customer PII", "Financial records", "Strategic plans", "Employee HR data"], "controls": "Encryption, DLP enforcement, access logging, need-to-know" },
+    { "level": "Restricted", "description": "Highly sensitive information. Severe impact if disclosed or modified.", "examples": ["Cardholder data (PAN)", "Cryptographic keys", "M&A documents", "Trade secrets"], "controls": "Strong encryption, MFA, DLP blocking, DAM, data masking, enhanced logging" }
+  ],
+  "automatedClassification": {
+    "approaches": [
+      { "approach": "Content-Based", "description": "Scans file contents using regex, keyword matching, and NLP", "accuracy": "High for structured data, moderate for unstructured" },
+      { "approach": "Context-Based", "description": "Uses metadata, location, and user context for classification", "accuracy": "Moderate — good for bulk classification" },
+      { "approach": "User-Driven", "description": "Users manually classify documents with prompted labels", "accuracy": "Variable — depends on training and compliance" },
+      { "approach": "ML/AI-Driven", "description": "Machine learning models trained on classified data samples", "accuracy": "High when properly trained, improves over time" }
+    ],
+    "tools": [
+      { "tool": "Microsoft Purview Information Protection", "type": "Integrated (M365)", "features": "Sensitivity labels, auto-labeling, content inspection" },
+      { "tool": "Boldon James Classifier", "type": "Enterprise", "features": "Visual marking, metadata tagging, policy enforcement" },
+      { "tool": "Titus (HelpSystems/Fortra)", "type": "Enterprise", "features": "Email classification, document marking, DLP integration" },
+      { "tool": "Varonis Data Classification Engine", "type": "Discovery + Classification", "features": "Automated discovery and classification, risk-based prioritization" }
+    ]
+  },
+  "malaysianContext": {
+    "governmentClassification": {
+      "description": "Malaysian government uses the Official Secrets Act 1972 (OSA) classification system",
+      "levels": [
+        { "level": "TERBUKA", "english": "Open", "description": "Public information" },
+        { "level": "TERHAD", "english": "Restricted", "description": "Limited distribution" },
+        { "level": "SULIT", "english": "Confidential", "description": "Information that would cause damage to national interest" },
+        { "level": "RAHSIA", "english": "Secret", "description": "Information that would cause serious damage to national interest" },
+        { "level": "RAHSIA BESAR", "english": "Top Secret", "description": "Information that would cause exceptionally grave damage to national interest" }
+      ]
+    },
+    "bnmRmit": "BNM RMiT S10.4 requires financial institutions to classify data based on sensitivity and apply controls proportional to classification level."
+  },
+  "sourceType": "constructed-indicative"
+}

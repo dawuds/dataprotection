@@ -1,0 +1,38 @@
+{
+  "_meta": { "title": "DLP Solutions & Architecture", "sourceType": "constructed-indicative" },
+  "technology": "Data Loss Prevention (DLP)",
+  "description": "DLP solutions detect and prevent unauthorized data exfiltration across network, endpoint, cloud, and email channels using content inspection, contextual analysis, and policy enforcement.",
+  "architecture": {
+    "layers": ["Network DLP (inline/passive sensors at egress)", "Endpoint DLP (agents on workstations/laptops)", "Cloud DLP (CASB, API connectors for SaaS/IaaS)", "Email DLP (gateway-integrated content inspection)", "Central Management Console (policy, alerts, reporting)"],
+    "diagram": "Internet <-> [Network DLP Sensor] <-> [Firewall] <-> Internal Network\n                                                        |\n                                                  [Email Gateway + DLP]\n                                                        |\nEndpoints [Endpoint DLP Agent] <-> [Internal Network] <-> [CASB/Cloud DLP]\n                                                        |\n                                              [Central DLP Console]\n                                        (Policies | Alerts | Reports)"
+  },
+  "deploymentPatterns": [
+    { "pattern": "Inline (Block Mode)", "description": "DLP sensor inline with traffic flow, actively blocking policy violations. Higher protection but risk of false-positive blocking.", "useCase": "External email and web traffic for high-sensitivity organizations" },
+    { "pattern": "Passive (Monitor Mode)", "description": "DLP sensor monitors copies of traffic without blocking. Used for initial deployment and tuning.", "useCase": "Initial DLP rollout, policy development, and baseline assessment" },
+    { "pattern": "API-Based Cloud DLP", "description": "DLP connects to cloud services via API for at-rest scanning and near-real-time monitoring.", "useCase": "SaaS application monitoring (O365, Google Workspace, Slack)" },
+    { "pattern": "Endpoint Agent", "description": "Software agent on endpoints monitoring local file operations, USB, clipboard, and print.", "useCase": "Insider threat prevention, removable media control" }
+  ],
+  "vendorLandscape": [
+    { "vendor": "Microsoft Purview DLP", "type": "Integrated", "strengths": "Native M365 integration, unified labeling, endpoint + cloud + email" },
+    { "vendor": "Symantec (Broadcom) DLP", "type": "Enterprise", "strengths": "Mature network/endpoint/cloud DLP, advanced content inspection" },
+    { "vendor": "Forcepoint DLP", "type": "Enterprise", "strengths": "Risk-adaptive protection, strong endpoint DLP, UEBA integration" },
+    { "vendor": "Digital Guardian", "type": "Enterprise", "strengths": "Data-centric security, strong endpoint focus, kernel-level monitoring" },
+    { "vendor": "Netskope", "type": "Cloud-Native", "strengths": "Leading CASB/cloud DLP, inline and API modes, real-time cloud inspection" },
+    { "vendor": "Zscaler", "type": "Cloud-Native", "strengths": "Cloud-delivered DLP, integrated with ZTNA, inline inspection" }
+  ],
+  "evaluationCriteria": [
+    "Content inspection accuracy (OCR, NLP, fingerprinting)",
+    "Multi-channel coverage (network, endpoint, cloud, email)",
+    "False positive management and tuning capabilities",
+    "Integration with classification and labeling solutions",
+    "Incident management workflow and reporting",
+    "Scalability and performance impact",
+    "Cloud service coverage breadth",
+    "Malaysian regulatory template availability"
+  ],
+  "malaysianContext": {
+    "bnmRmit": "BNM RMiT S10.55 requires data leakage prevention controls for financial institutions. DLP must cover both internal and external data transfers.",
+    "considerations": ["Bahasa Malaysia content inspection support", "Cross-border data transfer monitoring (PDPA Section 129)", "Integration with local SIEM/SOC capabilities"]
+  },
+  "sourceType": "constructed-indicative"
+}

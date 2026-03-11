@@ -1,0 +1,1512 @@
+{
+  "_meta": {
+    "title": "Data Protection Control Library",
+    "version": "1.0.0",
+    "sourceType": "constructed-indicative",
+    "totalControls": 50,
+    "domains": 10,
+    "lastUpdated": "2025-01-15"
+  },
+  "controls": [
+    {
+      "slug": "dcls-01",
+      "name": "Data Classification Policy",
+      "domain": "DCLS",
+      "description": "Establish and maintain a formal data classification policy that defines classification levels (e.g., Public, Internal, Confidential, Restricted), handling requirements for each level, and roles responsible for classification decisions.",
+      "requirements": {
+        "legal": ["ISO 27001:2022 A.5.12 — Classification of information", "BNM RMiT S10.4 — data classification based on sensitivity"],
+        "technical": ["Automated classification tools integrated with DLP", "Metadata tagging on all structured and unstructured data stores"],
+        "governance": ["Annual review of classification policy by CISO", "Classification training for all data owners"]
+      },
+      "keyActivities": [
+        { "activity": "Define classification taxonomy (minimum 4 levels)", "owner": "Data Governance Officer", "frequency": "Annual", "priority": "High" },
+        { "activity": "Map regulatory requirements to classification levels", "owner": "Compliance Team", "frequency": "Annual", "priority": "High" },
+        { "activity": "Train data owners on classification procedures", "owner": "Security Awareness Team", "frequency": "Annual", "priority": "Medium" },
+        { "activity": "Review and update classification decisions", "owner": "Data Owners", "frequency": "Quarterly", "priority": "Medium" }
+      ],
+      "maturityLevels": {
+        "basic": { "description": "Manual classification with basic labeling. Classification policy exists but enforcement is inconsistent." },
+        "mature": { "description": "Automated classification tools deployed. Regular audits of classification accuracy. Integration with DLP policies." },
+        "advanced": { "description": "AI-driven classification with continuous learning. Real-time classification at data creation. Full metadata lineage tracking." }
+      },
+      "frameworkMappings": {
+        "nist80053": ["RA-2", "SC-16"],
+        "nist800171": ["3.13.2"],
+        "pciDss": ["9.4.1"],
+        "iso27001": ["A.5.12", "A.5.13"],
+        "ccmV4": ["DSP-01"]
+      },
+      "sourceType": "constructed-indicative"
+    },
+    {
+      "slug": "dcls-02",
+      "name": "Data Labeling & Marking",
+      "domain": "DCLS",
+      "description": "Implement consistent labeling and marking of data assets according to their classification level, including visual headers/footers for documents, metadata tags for electronic files, and physical markings for printed materials.",
+      "requirements": {
+        "legal": ["ISO 27001:2022 A.5.13 — Labelling of information", "NIST 800-171 3.13.2 — CUI marking"],
+        "technical": ["Automated document header/footer injection", "Email subject-line classification tags", "Database column-level sensitivity labels"],
+        "governance": ["Labeling standards documented and communicated", "Periodic audits of labeling accuracy"]
+      },
+      "keyActivities": [
+        { "activity": "Define visual labeling standards for each classification level", "owner": "Data Governance Officer", "frequency": "Annual", "priority": "High" },
+        { "activity": "Deploy automated labeling tools (Microsoft AIP, Boldon James, etc.)", "owner": "IT Security", "frequency": "One-time + updates", "priority": "High" },
+        { "activity": "Audit labeling accuracy on sample datasets", "owner": "Internal Audit", "frequency": "Quarterly", "priority": "Medium" },
+        { "activity": "Update labeling rules for new data types", "owner": "Data Governance Officer", "frequency": "As needed", "priority": "Medium" }
+      ],
+      "maturityLevels": {
+        "basic": { "description": "Manual labeling with visual markers. Inconsistent application across departments." },
+        "mature": { "description": "Automated labeling integrated with classification engine. Consistent metadata tagging across all major data stores." },
+        "advanced": { "description": "Content-aware labeling with NLP-based classification. Persistent labels that travel with data across systems and cloud services." }
+      },
+      "frameworkMappings": {
+        "nist80053": ["SC-16", "MP-3"],
+        "nist800171": ["3.8.1", "3.13.2"],
+        "pciDss": ["9.4.1"],
+        "iso27001": ["A.5.13"],
+        "ccmV4": ["DSP-01"]
+      },
+      "sourceType": "constructed-indicative"
+    },
+    {
+      "slug": "dcls-03",
+      "name": "Data Handling Procedures",
+      "domain": "DCLS",
+      "description": "Define and enforce data handling procedures for each classification level covering creation, storage, transmission, sharing, archival, and destruction of data assets.",
+      "requirements": {
+        "legal": ["ISO 27001:2022 A.5.10 — Acceptable use of information assets", "BNM RMiT S10.5 — data handling controls"],
+        "technical": ["DLP policies aligned to handling rules", "Access controls enforcing need-to-know for classified data"],
+        "governance": ["Handling procedures documented per classification level", "Annual training on handling requirements"]
+      },
+      "keyActivities": [
+        { "activity": "Document handling procedures for each classification level", "owner": "Data Governance Officer", "frequency": "Annual", "priority": "High" },
+        { "activity": "Implement technical controls enforcing handling rules", "owner": "IT Security", "frequency": "Ongoing", "priority": "High" },
+        { "activity": "Conduct data handling awareness training", "owner": "Security Awareness Team", "frequency": "Annual", "priority": "Medium" },
+        { "activity": "Audit compliance with handling procedures", "owner": "Internal Audit", "frequency": "Semi-annual", "priority": "Medium" }
+      ],
+      "maturityLevels": {
+        "basic": { "description": "Written handling procedures exist. Manual enforcement relies on user awareness." },
+        "mature": { "description": "Technical controls enforce most handling rules. DLP monitors for violations. Regular compliance audits." },
+        "advanced": { "description": "Automated policy enforcement across all channels. Real-time violation alerts with automated remediation workflows." }
+      },
+      "frameworkMappings": {
+        "nist80053": ["MP-2", "MP-4", "SC-28"],
+        "nist800171": ["3.8.4", "3.8.5"],
+        "pciDss": ["3.3.1", "9.4.2"],
+        "iso27001": ["A.5.10", "A.5.14"],
+        "ccmV4": ["DSP-02"]
+      },
+      "sourceType": "constructed-indicative"
+    },
+    {
+      "slug": "dcls-04",
+      "name": "Data Inventory & Mapping",
+      "domain": "DCLS",
+      "description": "Maintain a comprehensive inventory of data assets including their locations, owners, classification levels, processing activities, and data flows across systems and third parties.",
+      "requirements": {
+        "legal": ["PCI DSS 3.2.1 — Account for stored cardholder data", "ISO 27001:2022 A.5.9 — Inventory of information assets"],
+        "technical": ["Automated data discovery and scanning tools", "Data flow mapping across internal and external systems"],
+        "governance": ["Data inventory reviewed and updated quarterly", "Data owners assigned for all classified assets"]
+      },
+      "keyActivities": [
+        { "activity": "Deploy automated data discovery tools", "owner": "IT Security", "frequency": "One-time + continuous", "priority": "High" },
+        { "activity": "Map data flows across systems and third parties", "owner": "Data Governance Officer", "frequency": "Quarterly", "priority": "High" },
+        { "activity": "Assign and validate data ownership", "owner": "Business Units", "frequency": "Annual", "priority": "Medium" },
+        { "activity": "Reconcile data inventory with asset management", "owner": "IT Operations", "frequency": "Quarterly", "priority": "Medium" }
+      ],
+      "maturityLevels": {
+        "basic": { "description": "Spreadsheet-based inventory of major data stores. Manual updates by data owners." },
+        "mature": { "description": "Automated discovery tools maintain near-real-time inventory. Data flow diagrams current and version-controlled." },
+        "advanced": { "description": "AI-driven data cataloging with automatic classification. Real-time data lineage tracking across multi-cloud environments." }
+      },
+      "frameworkMappings": {
+        "nist80053": ["CM-8", "PM-5", "RA-2"],
+        "nist800171": ["3.4.1"],
+        "pciDss": ["3.2.1", "12.5.2"],
+        "iso27001": ["A.5.9"],
+        "ccmV4": ["DSP-04"]
+      },
+      "sourceType": "constructed-indicative"
+    },
+    {
+      "slug": "dcls-05",
+      "name": "Metadata Management & Tagging",
+      "domain": "DCLS",
+      "description": "Implement consistent metadata standards and tagging practices to support classification, discovery, retention, and governance of data assets across structured and unstructured data stores.",
+      "requirements": {
+        "legal": ["ISO 27001:2022 A.5.12 — Classification of information (metadata requirements)"],
+        "technical": ["Standardized metadata schema across data platforms", "Automated metadata extraction and enrichment"],
+        "governance": ["Metadata standards documented and governed", "Metadata quality metrics tracked and reported"]
+      },
+      "keyActivities": [
+        { "activity": "Define organization-wide metadata taxonomy", "owner": "Data Governance Officer", "frequency": "Annual", "priority": "High" },
+        { "activity": "Implement metadata tagging automation", "owner": "Data Engineering", "frequency": "One-time + updates", "priority": "Medium" },
+        { "activity": "Monitor metadata quality and completeness", "owner": "Data Governance Officer", "frequency": "Monthly", "priority": "Medium" },
+        { "activity": "Align metadata schema with regulatory requirements", "owner": "Compliance Team", "frequency": "Annual", "priority": "Medium" }
+      ],
+      "maturityLevels": {
+        "basic": { "description": "Basic metadata fields defined. Manual tagging for key data assets." },
+        "mature": { "description": "Automated metadata extraction. Enterprise data catalog with search and discovery capabilities." },
+        "advanced": { "description": "ML-driven metadata enrichment. Knowledge graph linking data assets, owners, regulations, and processing activities." }
+      },
+      "frameworkMappings": {
+        "nist80053": ["SC-16", "CM-8"],
+        "nist800171": ["3.13.2"],
+        "pciDss": [],
+        "iso27001": ["A.5.12"],
+        "ccmV4": ["DSP-01", "DSP-04"]
+      },
+      "sourceType": "constructed-indicative"
+    },
+    {
+      "slug": "eart-01",
+      "name": "Full-Disk Encryption",
+      "domain": "EART",
+      "description": "Implement full-disk encryption (FDE) on all endpoints, removable media, and servers storing classified data using approved cryptographic algorithms (AES-256 or equivalent).",
+      "requirements": {
+        "legal": ["PCI DSS 3.5.1 — Render PAN unreadable", "BNM RMiT S10.46 — encryption for confidential data at rest"],
+        "technical": ["AES-256 or equivalent algorithm", "TPM-based key storage for endpoints", "Central management console for encryption status"],
+        "governance": ["Encryption policy mandating FDE for all endpoints", "Exception process for legacy systems"]
+      },
+      "keyActivities": [
+        { "activity": "Deploy FDE to all endpoints (BitLocker, FileVault, LUKS)", "owner": "IT Operations", "frequency": "Ongoing", "priority": "High" },
+        { "activity": "Monitor encryption compliance dashboard", "owner": "IT Security", "frequency": "Daily", "priority": "High" },
+        { "activity": "Manage recovery keys in escrow", "owner": "IT Operations", "frequency": "Ongoing", "priority": "High" },
+        { "activity": "Test recovery procedures quarterly", "owner": "IT Operations", "frequency": "Quarterly", "priority": "Medium" }
+      ],
+      "maturityLevels": {
+        "basic": { "description": "FDE enabled on company-issued laptops. Manual compliance tracking via spreadsheet." },
+        "mature": { "description": "Centrally managed FDE across all endpoints. Automated compliance reporting. Key escrow with documented recovery procedures." },
+        "advanced": { "description": "Hardware-based encryption with TPM 2.0. Self-encrypting drives (SEDs) for servers. Automated remediation of non-compliant devices." }
+      },
+      "frameworkMappings": {
+        "nist80053": ["SC-28", "SC-28(1)"],
+        "nist800171": ["3.13.16"],
+        "pciDss": ["3.5.1"],
+        "iso27001": ["A.8.24"],
+        "ccmV4": ["CEK-03"]
+      },
+      "sourceType": "constructed-indicative"
+    },
+    {
+      "slug": "eart-02",
+      "name": "Database Encryption (TDE)",
+      "domain": "EART",
+      "description": "Implement Transparent Data Encryption (TDE) for databases storing sensitive data, ensuring data files, log files, and backup files are encrypted without application changes.",
+      "requirements": {
+        "legal": ["PCI DSS 3.5.1 — Render stored PAN unreadable", "BNM RMiT S10.46 — encryption for databases"],
+        "technical": ["TDE enabled on all production databases with sensitive data", "Database encryption key (DEK) protected by master key in HSM", "Encrypted backups verified through restore testing"],
+        "governance": ["Database encryption standard documented", "Quarterly audit of TDE status across all database instances"]
+      },
+      "keyActivities": [
+        { "activity": "Enable TDE on all databases with classified data", "owner": "DBA Team", "frequency": "Ongoing", "priority": "High" },
+        { "activity": "Store database master keys in HSM", "owner": "Key Management Team", "frequency": "One-time + rotation", "priority": "High" },
+        { "activity": "Verify encrypted backup restorability", "owner": "DBA Team", "frequency": "Quarterly", "priority": "High" },
+        { "activity": "Audit TDE compliance across database estate", "owner": "IT Security", "frequency": "Quarterly", "priority": "Medium" }
+      ],
+      "maturityLevels": {
+        "basic": { "description": "TDE enabled on primary production databases. Manual key management." },
+        "mature": { "description": "TDE across all database instances. HSM-backed key management. Automated compliance reporting." },
+        "advanced": { "description": "Column-level encryption for highly sensitive fields. Key rotation automated with zero-downtime. Encrypted query processing capabilities." }
+      },
+      "frameworkMappings": {
+        "nist80053": ["SC-28", "SC-28(1)"],
+        "nist800171": ["3.13.16"],
+        "pciDss": ["3.5.1", "3.5.1.2"],
+        "iso27001": ["A.8.24"],
+        "ccmV4": ["CEK-03"]
+      },
+      "sourceType": "constructed-indicative"
+    },
+    {
+      "slug": "eart-03",
+      "name": "File-Level Encryption",
+      "domain": "EART",
+      "description": "Implement file-level encryption for sensitive documents and files stored on file shares, cloud storage, and collaboration platforms using rights-managed encryption.",
+      "requirements": {
+        "legal": ["NIST 800-171 3.13.11 — CUI encryption at rest", "ISO 27001:2022 A.8.24 — Use of cryptography"],
+        "technical": ["AES-256 encryption for files at rest", "Integration with document management systems", "Rights management preventing unauthorized decryption"],
+        "governance": ["File encryption standards for each classification level", "User training on file encryption tools"]
+      },
+      "keyActivities": [
+        { "activity": "Deploy file encryption solution (Azure RMS, Vera, etc.)", "owner": "IT Security", "frequency": "One-time + updates", "priority": "High" },
+        { "activity": "Define encryption rules by file type and classification", "owner": "Data Governance Officer", "frequency": "Annual", "priority": "High" },
+        { "activity": "Train users on file encryption procedures", "owner": "Security Awareness Team", "frequency": "Annual", "priority": "Medium" },
+        { "activity": "Audit file encryption compliance on shared storage", "owner": "IT Security", "frequency": "Quarterly", "priority": "Medium" }
+      ],
+      "maturityLevels": {
+        "basic": { "description": "Manual file encryption using native OS tools. Users responsible for encrypting sensitive files." },
+        "mature": { "description": "Automated file encryption based on classification labels. Rights management controls access after encryption." },
+        "advanced": { "description": "Persistent encryption that follows files across platforms. Integration with DRM for granular access control." }
+      },
+      "frameworkMappings": {
+        "nist80053": ["SC-28", "SC-12"],
+        "nist800171": ["3.13.11"],
+        "pciDss": ["3.5.1"],
+        "iso27001": ["A.8.24"],
+        "ccmV4": ["CEK-03"]
+      },
+      "sourceType": "constructed-indicative"
+    },
+    {
+      "slug": "eart-04",
+      "name": "Cloud Storage Encryption",
+      "domain": "EART",
+      "description": "Ensure all data stored in cloud services (IaaS, PaaS, SaaS) is encrypted at rest using customer-managed keys (CMK) or cloud-provider managed keys with appropriate key management controls.",
+      "requirements": {
+        "legal": ["CSA CCM CEK-04 — cloud encryption key management", "BNM RMiT S10.47 — encryption for cloud-hosted data"],
+        "technical": ["Server-side encryption (SSE) enabled for all cloud storage", "Customer-managed keys (CMK) for sensitive data", "Key management separate from data storage"],
+        "governance": ["Cloud encryption policy documented", "Cloud provider encryption capabilities assessed during procurement"]
+      },
+      "keyActivities": [
+        { "activity": "Enable server-side encryption on all cloud storage", "owner": "Cloud Engineering", "frequency": "Ongoing", "priority": "High" },
+        { "activity": "Implement CMK for sensitive workloads", "owner": "Cloud Security", "frequency": "Per deployment", "priority": "High" },
+        { "activity": "Monitor cloud encryption compliance", "owner": "Cloud Security", "frequency": "Daily", "priority": "Medium" },
+        { "activity": "Assess cloud provider key management practices", "owner": "Vendor Management", "frequency": "Annual", "priority": "Medium" }
+      ],
+      "maturityLevels": {
+        "basic": { "description": "Cloud-provider default encryption enabled. Provider-managed keys used." },
+        "mature": { "description": "Customer-managed keys (CMK) for all sensitive data. Centralized cloud key management. Automated compliance monitoring." },
+        "advanced": { "description": "BYOK/HYOK across all cloud providers. Client-side encryption before upload. Multi-cloud key management with unified policy." }
+      },
+      "frameworkMappings": {
+        "nist80053": ["SC-28", "SC-12(1)"],
+        "nist800171": ["3.13.16"],
+        "pciDss": ["3.5.1"],
+        "iso27001": ["A.8.24"],
+        "ccmV4": ["CEK-03", "CEK-04"]
+      },
+      "sourceType": "constructed-indicative"
+    },
+    {
+      "slug": "eart-05",
+      "name": "Key Escrow & Recovery",
+      "domain": "EART",
+      "description": "Maintain secure key escrow procedures ensuring encrypted data remains recoverable in case of key loss, employee departure, or system failure while preventing unauthorized access.",
+      "requirements": {
+        "legal": ["NIST SP 800-57 Part 1 — key recovery recommendations"],
+        "technical": ["Encrypted key escrow database with multi-party access", "Hardware-backed key escrow (HSM)", "Automated key recovery workflows"],
+        "governance": ["Key escrow policy with dual-control access", "Regular testing of key recovery procedures"]
+      },
+      "keyActivities": [
+        { "activity": "Implement key escrow with dual-control access", "owner": "Key Management Team", "frequency": "One-time + updates", "priority": "High" },
+        { "activity": "Test key recovery procedures", "owner": "IT Security", "frequency": "Quarterly", "priority": "High" },
+        { "activity": "Audit escrow access logs", "owner": "Internal Audit", "frequency": "Monthly", "priority": "Medium" },
+        { "activity": "Update escrow procedures for departing employees", "owner": "HR + IT Security", "frequency": "As needed", "priority": "High" }
+      ],
+      "maturityLevels": {
+        "basic": { "description": "Basic key escrow using encrypted file storage. Manual recovery process documented." },
+        "mature": { "description": "HSM-backed key escrow with dual-control access. Automated workflows for common recovery scenarios." },
+        "advanced": { "description": "M-of-N key splitting for critical keys. Automated escrow lifecycle management with audit trails." }
+      },
+      "frameworkMappings": {
+        "nist80053": ["SC-12(1)", "SC-12(2)"],
+        "nist800171": ["3.13.10"],
+        "pciDss": ["3.6.1"],
+        "iso27001": ["A.8.24"],
+        "ccmV4": ["CEK-02"]
+      },
+      "sourceType": "constructed-indicative"
+    },
+    {
+      "slug": "eitr-01",
+      "name": "TLS Configuration & Enforcement",
+      "domain": "EITR",
+      "description": "Enforce TLS 1.2 or higher for all data in transit, including web applications, APIs, internal services, and database connections. Disable deprecated protocols (SSL, TLS 1.0, TLS 1.1).",
+      "requirements": {
+        "legal": ["PCI DSS 4.2.1 — Strong cryptography for PAN transmission", "BNM RMiT S10.48 — encryption for data in transit"],
+        "technical": ["TLS 1.2+ enforced on all endpoints", "Strong cipher suites only (AES-GCM, ChaCha20-Poly1305)", "HSTS headers on all web applications"],
+        "governance": ["TLS policy documenting minimum standards", "Quarterly cipher suite review"]
+      },
+      "keyActivities": [
+        { "activity": "Enforce TLS 1.2+ across all services", "owner": "IT Security", "frequency": "Ongoing", "priority": "High" },
+        { "activity": "Disable deprecated TLS/SSL versions", "owner": "IT Operations", "frequency": "Ongoing", "priority": "High" },
+        { "activity": "Scan for weak cipher suites (SSL Labs, testssl.sh)", "owner": "IT Security", "frequency": "Monthly", "priority": "High" },
+        { "activity": "Implement HSTS on all web applications", "owner": "Web Operations", "frequency": "Ongoing", "priority": "Medium" }
+      ],
+      "maturityLevels": {
+        "basic": { "description": "TLS 1.2 enabled on external-facing services. Some internal services may use older protocols." },
+        "mature": { "description": "TLS 1.2+ enforced organization-wide. Automated scanning for weak configurations. HSTS deployed." },
+        "advanced": { "description": "TLS 1.3 preferred everywhere. Certificate Transparency monitoring. Automated cipher suite rotation." }
+      },
+      "frameworkMappings": {
+        "nist80053": ["SC-8", "SC-8(1)"],
+        "nist800171": ["3.13.8"],
+        "pciDss": ["4.2.1", "4.2.1.1"],
+        "iso27001": ["A.8.24"],
+        "ccmV4": ["CEK-04"]
+      },
+      "sourceType": "constructed-indicative"
+    },
+    {
+      "slug": "eitr-02",
+      "name": "Certificate Management",
+      "domain": "EITR",
+      "description": "Maintain a comprehensive certificate lifecycle management program covering issuance, renewal, revocation, and monitoring of X.509 certificates used for TLS, code signing, and authentication.",
+      "requirements": {
+        "legal": ["PCI DSS 4.2.1 — trusted certificates for transmission security"],
+        "technical": ["Automated certificate lifecycle management (ACME)", "Certificate transparency log monitoring", "Internal PKI or trusted CA partnership"],
+        "governance": ["Certificate inventory maintained", "Certificate expiry monitoring with alerting"]
+      },
+      "keyActivities": [
+        { "activity": "Maintain complete certificate inventory", "owner": "PKI Team", "frequency": "Continuous", "priority": "High" },
+        { "activity": "Implement automated certificate renewal (ACME/Let's Encrypt)", "owner": "IT Operations", "frequency": "One-time + monitoring", "priority": "High" },
+        { "activity": "Monitor for certificate expiry (30/14/7-day alerts)", "owner": "IT Security", "frequency": "Daily", "priority": "High" },
+        { "activity": "Review and rotate intermediate CA certificates", "owner": "PKI Team", "frequency": "Annual", "priority": "Medium" }
+      ],
+      "maturityLevels": {
+        "basic": { "description": "Spreadsheet-based certificate tracking. Manual renewal processes." },
+        "mature": { "description": "Automated certificate management platform. Expiry alerting with escalation. Internal PKI for internal services." },
+        "advanced": { "description": "Fully automated certificate lifecycle. Short-lived certificates (90 days). Post-quantum cryptography readiness assessment." }
+      },
+      "frameworkMappings": {
+        "nist80053": ["SC-17", "IA-5(2)"],
+        "nist800171": ["3.13.10"],
+        "pciDss": ["4.2.1"],
+        "iso27001": ["A.8.24"],
+        "ccmV4": ["CEK-04"]
+      },
+      "sourceType": "constructed-indicative"
+    },
+    {
+      "slug": "eitr-03",
+      "name": "VPN & Tunnel Encryption",
+      "domain": "EITR",
+      "description": "Implement encrypted VPN tunnels for remote access and site-to-site connectivity using IPsec or WireGuard with approved cryptographic algorithms.",
+      "requirements": {
+        "legal": ["NIST 800-171 3.13.8 — Cryptographic protection for CUI in transit"],
+        "technical": ["IPsec or WireGuard with AES-256-GCM", "Perfect forward secrecy (PFS) enabled", "Split tunneling disabled for classified traffic"],
+        "governance": ["VPN configuration standards documented", "VPN access logs retained and reviewed"]
+      },
+      "keyActivities": [
+        { "activity": "Deploy VPN with approved encryption standards", "owner": "Network Security", "frequency": "Ongoing", "priority": "High" },
+        { "activity": "Enforce PFS on all VPN connections", "owner": "Network Security", "frequency": "Ongoing", "priority": "High" },
+        { "activity": "Review VPN access logs for anomalies", "owner": "SOC", "frequency": "Daily", "priority": "Medium" },
+        { "activity": "Test VPN failover and redundancy", "owner": "Network Operations", "frequency": "Quarterly", "priority": "Medium" }
+      ],
+      "maturityLevels": {
+        "basic": { "description": "VPN deployed for remote access with basic encryption. Manual log review." },
+        "mature": { "description": "Site-to-site and remote VPN with PFS. Centralized VPN management. Automated anomaly detection on VPN logs." },
+        "advanced": { "description": "Zero-trust network access (ZTNA) complementing VPN. Adaptive authentication based on risk scoring." }
+      },
+      "frameworkMappings": {
+        "nist80053": ["SC-8", "SC-8(1)", "SC-12"],
+        "nist800171": ["3.13.8"],
+        "pciDss": ["4.2.1"],
+        "iso27001": ["A.8.24", "A.8.20"],
+        "ccmV4": ["CEK-04"]
+      },
+      "sourceType": "constructed-indicative"
+    },
+    {
+      "slug": "eitr-04",
+      "name": "API Encryption & Security",
+      "domain": "EITR",
+      "description": "Ensure all API communications use TLS encryption with mutual authentication (mTLS) for service-to-service calls and proper token management for API authentication.",
+      "requirements": {
+        "legal": ["PCI DSS 4.2.1 — Strong cryptography for data in transit", "BNM RMiT S10.48 — API security"],
+        "technical": ["mTLS for service-to-service communication", "OAuth 2.0 / OIDC for API authentication", "API gateway enforcing encryption policies"],
+        "governance": ["API security standards documented", "API inventory maintained with encryption status"]
+      },
+      "keyActivities": [
+        { "activity": "Enforce TLS on all API endpoints", "owner": "API Platform Team", "frequency": "Ongoing", "priority": "High" },
+        { "activity": "Implement mTLS for internal service mesh", "owner": "Platform Engineering", "frequency": "Ongoing", "priority": "High" },
+        { "activity": "Deploy API gateway with encryption enforcement", "owner": "API Platform Team", "frequency": "One-time + updates", "priority": "Medium" },
+        { "activity": "Audit API encryption compliance", "owner": "IT Security", "frequency": "Quarterly", "priority": "Medium" }
+      ],
+      "maturityLevels": {
+        "basic": { "description": "TLS on external APIs. Basic API key authentication." },
+        "mature": { "description": "mTLS for internal APIs. OAuth 2.0 with short-lived tokens. API gateway with policy enforcement." },
+        "advanced": { "description": "Service mesh with automatic mTLS. API-level encryption for sensitive payloads. Zero-trust API architecture." }
+      },
+      "frameworkMappings": {
+        "nist80053": ["SC-8", "SC-8(1)", "SC-23"],
+        "nist800171": ["3.13.8"],
+        "pciDss": ["4.2.1"],
+        "iso27001": ["A.8.24", "A.8.26"],
+        "ccmV4": ["CEK-04"]
+      },
+      "sourceType": "constructed-indicative"
+    },
+    {
+      "slug": "eitr-05",
+      "name": "Email Encryption",
+      "domain": "EITR",
+      "description": "Implement email encryption for sensitive communications using S/MIME, PGP, or transport-level encryption (STARTTLS, MTA-STS) to protect email content in transit.",
+      "requirements": {
+        "legal": ["PCI DSS 4.2.1 — Encryption for PAN in transit", "ISO 27001:2022 A.8.24 — Cryptography for email"],
+        "technical": ["S/MIME or PGP for end-to-end email encryption", "STARTTLS enforced on mail servers", "MTA-STS and DANE for mail transport security"],
+        "governance": ["Email encryption policy for classified communications", "User training on secure email practices"]
+      },
+      "keyActivities": [
+        { "activity": "Enable STARTTLS on all mail servers", "owner": "Email Admin", "frequency": "One-time + verification", "priority": "High" },
+        { "activity": "Deploy S/MIME certificates for users handling sensitive data", "owner": "PKI Team", "frequency": "Ongoing", "priority": "Medium" },
+        { "activity": "Implement MTA-STS for mail transport security", "owner": "Email Admin", "frequency": "One-time", "priority": "Medium" },
+        { "activity": "Train users on email encryption usage", "owner": "Security Awareness Team", "frequency": "Annual", "priority": "Medium" }
+      ],
+      "maturityLevels": {
+        "basic": { "description": "STARTTLS enabled on mail servers. Manual PGP/S/MIME for specific users." },
+        "mature": { "description": "Automated email encryption based on classification labels. Gateway-based encryption for external recipients." },
+        "advanced": { "description": "End-to-end encryption with automated key exchange. DLP-triggered email encryption. MTA-STS with DANE." }
+      },
+      "frameworkMappings": {
+        "nist80053": ["SC-8", "SC-8(1)"],
+        "nist800171": ["3.13.8"],
+        "pciDss": ["4.2.1"],
+        "iso27001": ["A.8.24"],
+        "ccmV4": ["CEK-04"]
+      },
+      "sourceType": "constructed-indicative"
+    },
+    {
+      "slug": "eius-01",
+      "name": "Confidential Computing",
+      "domain": "EIUS",
+      "description": "Implement confidential computing technologies that protect data during processing using hardware-based Trusted Execution Environments (TEEs) such as Intel SGX, AMD SEV, or ARM TrustZone.",
+      "requirements": {
+        "legal": ["Emerging regulatory requirements for data-in-use protection"],
+        "technical": ["TEE-enabled hardware (Intel SGX, AMD SEV, ARM TrustZone)", "Attestation services for TEE integrity verification", "Secure enclave programming frameworks"],
+        "governance": ["Confidential computing use cases identified and prioritized", "Risk assessment for data-in-use exposure"]
+      },
+      "keyActivities": [
+        { "activity": "Assess data-in-use protection requirements", "owner": "IT Security Architecture", "frequency": "Annual", "priority": "High" },
+        { "activity": "Pilot confidential computing for high-value workloads", "owner": "Cloud Engineering", "frequency": "Project-based", "priority": "Medium" },
+        { "activity": "Implement TEE attestation and verification", "owner": "Security Engineering", "frequency": "Per deployment", "priority": "Medium" },
+        { "activity": "Monitor confidential computing technology maturity", "owner": "IT Security Architecture", "frequency": "Quarterly", "priority": "Low" }
+      ],
+      "maturityLevels": {
+        "basic": { "description": "Awareness of confidential computing. Use case identification completed." },
+        "mature": { "description": "TEE deployed for high-sensitivity workloads. Attestation services operational." },
+        "advanced": { "description": "Multi-party confidential computing for cross-organization data processing. Full attestation chain with hardware root of trust." }
+      },
+      "frameworkMappings": {
+        "nist80053": ["SC-28(1)", "SC-39"],
+        "nist800171": [],
+        "pciDss": [],
+        "iso27001": ["A.8.24"],
+        "ccmV4": ["CEK-03"]
+      },
+      "sourceType": "constructed-indicative"
+    },
+    {
+      "slug": "eius-02",
+      "name": "Secure Enclaves",
+      "domain": "EIUS",
+      "description": "Deploy hardware-isolated secure enclaves for processing highly sensitive data, ensuring that even privileged system administrators and hypervisors cannot access data within the enclave.",
+      "requirements": {
+        "legal": ["Regulatory drivers for processing sensitive data securely (e.g., financial data, PII)"],
+        "technical": ["Intel SGX or AMD SEV-SNP enabled workloads", "Enclave attestation and sealing", "Secure key provisioning to enclaves"],
+        "governance": ["Enclave security architecture documented", "Threat model for enclave-based processing"]
+      },
+      "keyActivities": [
+        { "activity": "Define workloads requiring enclave protection", "owner": "Security Architecture", "frequency": "Annual", "priority": "Medium" },
+        { "activity": "Deploy enclave-enabled infrastructure", "owner": "Infrastructure Team", "frequency": "Per project", "priority": "Medium" },
+        { "activity": "Implement remote attestation for enclaves", "owner": "Security Engineering", "frequency": "Per deployment", "priority": "Medium" },
+        { "activity": "Test side-channel attack resilience", "owner": "Security Testing", "frequency": "Annual", "priority": "Medium" }
+      ],
+      "maturityLevels": {
+        "basic": { "description": "Secure enclave feasibility assessed. Pilot workloads identified." },
+        "mature": { "description": "Production enclaves for sensitive processing. Remote attestation operational." },
+        "advanced": { "description": "Multi-enclave architectures with secure communication. Side-channel hardened configurations." }
+      },
+      "frameworkMappings": {
+        "nist80053": ["SC-39", "SC-28(1)"],
+        "nist800171": [],
+        "pciDss": [],
+        "iso27001": ["A.8.24"],
+        "ccmV4": ["CEK-03"]
+      },
+      "sourceType": "constructed-indicative"
+    },
+    {
+      "slug": "eius-03",
+      "name": "Homomorphic Encryption",
+      "domain": "EIUS",
+      "description": "Evaluate and implement homomorphic encryption (HE) schemes for use cases requiring computation on encrypted data without decryption, such as privacy-preserving analytics.",
+      "requirements": {
+        "legal": ["Privacy regulations requiring minimization of data exposure"],
+        "technical": ["HE library selection (SEAL, HElib, TFHE)", "Performance benchmarking for target use cases", "Integration with existing data pipelines"],
+        "governance": ["HE use case assessment and feasibility study", "Performance vs. security trade-off documentation"]
+      },
+      "keyActivities": [
+        { "activity": "Identify use cases suitable for homomorphic encryption", "owner": "Data Science + Security", "frequency": "Annual", "priority": "Low" },
+        { "activity": "Benchmark HE performance for candidate workloads", "owner": "Security Engineering", "frequency": "Per use case", "priority": "Low" },
+        { "activity": "Pilot HE implementation for selected use case", "owner": "Engineering", "frequency": "Project-based", "priority": "Low" },
+        { "activity": "Track HE technology maturity and standards", "owner": "IT Security Architecture", "frequency": "Semi-annual", "priority": "Low" }
+      ],
+      "maturityLevels": {
+        "basic": { "description": "HE feasibility assessed. No production implementation." },
+        "mature": { "description": "HE deployed for specific privacy-preserving analytics use cases." },
+        "advanced": { "description": "Practical FHE (fully homomorphic encryption) for multi-party computation scenarios." }
+      },
+      "frameworkMappings": {
+        "nist80053": ["SC-28(1)"],
+        "nist800171": [],
+        "pciDss": [],
+        "iso27001": ["A.8.24"],
+        "ccmV4": []
+      },
+      "sourceType": "constructed-indicative"
+    },
+    {
+      "slug": "eius-04",
+      "name": "Tokenization for In-Use Protection",
+      "domain": "EIUS",
+      "description": "Implement tokenization to replace sensitive data elements with non-sensitive tokens during processing, reducing exposure of actual data values in application memory and processing pipelines.",
+      "requirements": {
+        "legal": ["PCI DSS 3.5.1 — Tokenization as alternative to encryption for PAN", "Regulatory requirements to minimize data exposure"],
+        "technical": ["Tokenization vault with high availability", "Format-preserving tokenization (FPE) where needed", "Detokenization restricted to authorized processes"],
+        "governance": ["Tokenization scope and coverage documented", "Token vault access controls reviewed quarterly"]
+      },
+      "keyActivities": [
+        { "activity": "Identify data elements for tokenization", "owner": "Data Protection Team", "frequency": "Annual", "priority": "High" },
+        { "activity": "Deploy tokenization platform", "owner": "Security Engineering", "frequency": "One-time + updates", "priority": "High" },
+        { "activity": "Restrict detokenization access to authorized services", "owner": "IT Security", "frequency": "Ongoing", "priority": "High" },
+        { "activity": "Audit tokenization coverage and access", "owner": "Internal Audit", "frequency": "Quarterly", "priority": "Medium" }
+      ],
+      "maturityLevels": {
+        "basic": { "description": "Tokenization for PCI scope reduction. Single tokenization vault." },
+        "mature": { "description": "Enterprise tokenization platform. Multi-data-type tokenization. Automated detokenization policies." },
+        "advanced": { "description": "Distributed tokenization with micro-vaults. Format-preserving encryption/tokenization across all sensitive data types." }
+      },
+      "frameworkMappings": {
+        "nist80053": ["SC-28"],
+        "nist800171": ["3.13.16"],
+        "pciDss": ["3.5.1", "3.5.1.1"],
+        "iso27001": ["A.8.24", "A.8.11"],
+        "ccmV4": ["DSP-05"]
+      },
+      "sourceType": "constructed-indicative"
+    },
+    {
+      "slug": "dlps-01",
+      "name": "Network DLP",
+      "domain": "DLPS",
+      "description": "Deploy network-based Data Loss Prevention sensors at key egress points to inspect, detect, and block unauthorized transmission of sensitive data over network channels.",
+      "requirements": {
+        "legal": ["BNM RMiT S10.55 — Data leakage prevention", "PCI DSS 12.5.2 — Prevent data exfiltration"],
+        "technical": ["Inline or passive DLP sensors at internet egress", "Content inspection for sensitive data patterns (PAN, PII, classified content)", "Integration with email gateway and web proxy"],
+        "governance": ["DLP policy aligned to data classification", "False positive management process documented"]
+      },
+      "keyActivities": [
+        { "activity": "Deploy network DLP at all internet egress points", "owner": "Network Security", "frequency": "One-time + tuning", "priority": "High" },
+        { "activity": "Create DLP policies for each data classification level", "owner": "IT Security", "frequency": "Annual", "priority": "High" },
+        { "activity": "Tune DLP policies to reduce false positives", "owner": "DLP Administrator", "frequency": "Monthly", "priority": "High" },
+        { "activity": "Review DLP incident reports", "owner": "SOC", "frequency": "Daily", "priority": "High" }
+      ],
+      "maturityLevels": {
+        "basic": { "description": "Network DLP deployed at primary internet gateway. Basic regex patterns for PAN and SSN detection." },
+        "mature": { "description": "Multi-channel DLP (email, web, FTP). Content fingerprinting for classified documents. Tuned policies with low false-positive rates." },
+        "advanced": { "description": "ML-based content analysis. Behavioral DLP detecting anomalous data movements. Automated response workflows." }
+      },
+      "frameworkMappings": {
+        "nist80053": ["SC-7(10)", "SI-4"],
+        "nist800171": ["3.13.1"],
+        "pciDss": ["12.5.2"],
+        "iso27001": ["A.8.12"],
+        "ccmV4": ["DSP-08"]
+      },
+      "sourceType": "constructed-indicative"
+    },
+    {
+      "slug": "dlps-02",
+      "name": "Endpoint DLP",
+      "domain": "DLPS",
+      "description": "Deploy endpoint DLP agents on workstations and laptops to monitor and control data transfers via USB, printing, clipboard, screen capture, and local file operations.",
+      "requirements": {
+        "legal": ["BNM RMiT S10.55 — Data leakage prevention at endpoints"],
+        "technical": ["Endpoint DLP agent on all managed endpoints", "USB/removable media control policies", "Print and clipboard monitoring for classified content"],
+        "governance": ["Endpoint DLP policy documented", "User notification of monitoring practices"]
+      },
+      "keyActivities": [
+        { "activity": "Deploy endpoint DLP agent to all managed endpoints", "owner": "Endpoint Security", "frequency": "Ongoing", "priority": "High" },
+        { "activity": "Configure USB and removable media policies", "owner": "IT Security", "frequency": "Annual", "priority": "High" },
+        { "activity": "Monitor endpoint DLP alerts", "owner": "SOC", "frequency": "Daily", "priority": "High" },
+        { "activity": "Review endpoint DLP exceptions and overrides", "owner": "IT Security", "frequency": "Monthly", "priority": "Medium" }
+      ],
+      "maturityLevels": {
+        "basic": { "description": "Endpoint DLP on high-risk endpoints. USB blocking for general users." },
+        "mature": { "description": "Enterprise-wide endpoint DLP. Content-aware USB policies. Clipboard and print monitoring." },
+        "advanced": { "description": "Context-aware endpoint DLP with user behavior analytics. Adaptive policies based on risk scoring." }
+      },
+      "frameworkMappings": {
+        "nist80053": ["SC-7(10)", "MP-7"],
+        "nist800171": ["3.8.7"],
+        "pciDss": ["12.5.2"],
+        "iso27001": ["A.8.12"],
+        "ccmV4": ["DSP-08"]
+      },
+      "sourceType": "constructed-indicative"
+    },
+    {
+      "slug": "dlps-03",
+      "name": "Cloud DLP",
+      "domain": "DLPS",
+      "description": "Implement cloud-native DLP controls to discover, classify, and protect sensitive data across SaaS applications, cloud storage, and cloud-hosted databases.",
+      "requirements": {
+        "legal": ["CSA CCM DSP-08 — Cloud data loss prevention", "BNM RMiT S10.55 — DLP including cloud channels"],
+        "technical": ["CASB or cloud-native DLP for SaaS monitoring", "API-based inspection of cloud storage", "Cloud DLP integrated with classification engine"],
+        "governance": ["Cloud DLP coverage mapped to cloud application inventory", "Cloud DLP policy aligned with on-premises DLP"]
+      },
+      "keyActivities": [
+        { "activity": "Deploy CASB or cloud-native DLP for sanctioned SaaS", "owner": "Cloud Security", "frequency": "Ongoing", "priority": "High" },
+        { "activity": "Scan cloud storage for unprotected sensitive data", "owner": "Cloud Security", "frequency": "Weekly", "priority": "High" },
+        { "activity": "Integrate cloud DLP with on-premises DLP policies", "owner": "IT Security", "frequency": "Annual", "priority": "Medium" },
+        { "activity": "Monitor cloud DLP alerts and shadow IT detection", "owner": "SOC", "frequency": "Daily", "priority": "Medium" }
+      ],
+      "maturityLevels": {
+        "basic": { "description": "CASB deployed for major SaaS applications. Basic cloud storage scanning." },
+        "mature": { "description": "Unified DLP policy across on-premises and cloud. Real-time cloud DLP with automated remediation." },
+        "advanced": { "description": "AI-driven cloud DLP with contextual analysis. Shadow IT discovery and automatic policy enforcement." }
+      },
+      "frameworkMappings": {
+        "nist80053": ["SC-7(10)", "SI-4"],
+        "nist800171": ["3.13.1"],
+        "pciDss": ["12.5.2"],
+        "iso27001": ["A.8.12"],
+        "ccmV4": ["DSP-08"]
+      },
+      "sourceType": "constructed-indicative"
+    },
+    {
+      "slug": "dlps-04",
+      "name": "Email DLP",
+      "domain": "DLPS",
+      "description": "Implement email-specific DLP controls to inspect outbound email content and attachments for sensitive data, enforcing encryption, quarantine, or blocking based on policy.",
+      "requirements": {
+        "legal": ["PCI DSS 4.2.1 — Protect PAN in email", "BNM RMiT S10.55 — Email data leakage prevention"],
+        "technical": ["Email gateway DLP inspection", "Attachment scanning for sensitive content", "Automated encryption for emails containing classified data"],
+        "governance": ["Email DLP policy aligned with classification", "User notification on DLP-blocked emails"]
+      },
+      "keyActivities": [
+        { "activity": "Configure email DLP rules on mail gateway", "owner": "Email Security", "frequency": "Ongoing", "priority": "High" },
+        { "activity": "Implement automatic encryption for sensitive email content", "owner": "Email Security", "frequency": "Ongoing", "priority": "High" },
+        { "activity": "Review email DLP incidents and adjust policies", "owner": "DLP Administrator", "frequency": "Weekly", "priority": "Medium" },
+        { "activity": "Train users on secure email practices", "owner": "Security Awareness Team", "frequency": "Annual", "priority": "Medium" }
+      ],
+      "maturityLevels": {
+        "basic": { "description": "Basic email DLP rules for PAN and SSN patterns. Manual incident review." },
+        "mature": { "description": "Content-aware email DLP with classification label integration. Automated encryption triggers." },
+        "advanced": { "description": "ML-based email content analysis. Contextual email DLP with risk-adaptive policies." }
+      },
+      "frameworkMappings": {
+        "nist80053": ["SC-7(10)", "SC-8"],
+        "nist800171": ["3.13.1", "3.13.8"],
+        "pciDss": ["4.2.1", "12.5.2"],
+        "iso27001": ["A.8.12"],
+        "ccmV4": ["DSP-08"]
+      },
+      "sourceType": "constructed-indicative"
+    },
+    {
+      "slug": "dlps-05",
+      "name": "DLP Policy Tuning & Incident Response",
+      "domain": "DLPS",
+      "description": "Establish ongoing DLP policy tuning processes and incident response procedures to optimize detection accuracy, reduce false positives, and ensure timely response to confirmed data loss incidents.",
+      "requirements": {
+        "legal": ["Regulatory requirements for data breach notification"],
+        "technical": ["DLP incident management workflow", "False positive tracking and policy refinement", "Integration with SIEM for correlated alerting"],
+        "governance": ["DLP incident response procedures documented", "Monthly DLP metrics reporting to management"]
+      },
+      "keyActivities": [
+        { "activity": "Track and analyze DLP false positive rates", "owner": "DLP Administrator", "frequency": "Weekly", "priority": "High" },
+        { "activity": "Refine DLP detection rules based on incident analysis", "owner": "DLP Administrator", "frequency": "Monthly", "priority": "High" },
+        { "activity": "Investigate confirmed DLP incidents", "owner": "Incident Response Team", "frequency": "Per incident", "priority": "High" },
+        { "activity": "Report DLP metrics to management", "owner": "IT Security", "frequency": "Monthly", "priority": "Medium" }
+      ],
+      "maturityLevels": {
+        "basic": { "description": "Basic incident tracking. Reactive policy tuning based on complaints." },
+        "mature": { "description": "Structured DLP incident workflow. Metrics-driven policy tuning. Integration with SIEM and SOAR." },
+        "advanced": { "description": "ML-assisted policy optimization. Automated incident classification and routing. Predictive analytics for data loss risk." }
+      },
+      "frameworkMappings": {
+        "nist80053": ["IR-4", "SI-4(5)"],
+        "nist800171": ["3.6.1"],
+        "pciDss": ["12.5.2", "12.10.1"],
+        "iso27001": ["A.8.12", "A.5.24"],
+        "ccmV4": ["DSP-08"]
+      },
+      "sourceType": "constructed-indicative"
+    },
+    {
+      "slug": "kmgt-01",
+      "name": "Key Generation",
+      "domain": "KMGT",
+      "description": "Establish secure cryptographic key generation procedures using approved random number generators and key lengths appropriate for the protection level required.",
+      "requirements": {
+        "legal": ["NIST SP 800-133 — Key generation recommendations", "PCI DSS 3.6.1 — Strong key generation"],
+        "technical": ["FIPS 140-2/3 validated RNG or DRBG", "Minimum key lengths: AES-256, RSA-2048, ECC P-256", "Key generation in HSM or trusted environment"],
+        "governance": ["Key generation procedures documented", "Approved algorithm and key length standards"]
+      },
+      "keyActivities": [
+        { "activity": "Define approved cryptographic algorithms and key lengths", "owner": "Security Architecture", "frequency": "Annual", "priority": "High" },
+        { "activity": "Generate cryptographic keys in HSM environment", "owner": "Key Management Team", "frequency": "As needed", "priority": "High" },
+        { "activity": "Validate FIPS compliance of key generation processes", "owner": "IT Security", "frequency": "Annual", "priority": "High" },
+        { "activity": "Document key generation events with audit trail", "owner": "Key Management Team", "frequency": "Per generation", "priority": "Medium" }
+      ],
+      "maturityLevels": {
+        "basic": { "description": "Keys generated using operating system RNG. Manual documentation of key generation." },
+        "mature": { "description": "HSM-based key generation. FIPS 140-2 Level 3 validated. Automated audit logging." },
+        "advanced": { "description": "Hardware RNG entropy sources. Quantum-safe key generation algorithms assessed. Automated key generation workflows." }
+      },
+      "frameworkMappings": {
+        "nist80053": ["SC-12", "SC-13"],
+        "nist800171": ["3.13.10", "3.13.11"],
+        "pciDss": ["3.6.1", "3.6.1.1"],
+        "iso27001": ["A.8.24"],
+        "ccmV4": ["CEK-01"]
+      },
+      "sourceType": "constructed-indicative"
+    },
+    {
+      "slug": "kmgt-02",
+      "name": "Key Distribution",
+      "domain": "KMGT",
+      "description": "Implement secure key distribution mechanisms ensuring cryptographic keys are transported securely to authorized endpoints and never exposed in plaintext during transit.",
+      "requirements": {
+        "legal": ["NIST SP 800-57 Part 1 — Key distribution guidelines", "PCI DSS 3.6.1 — Secure key distribution"],
+        "technical": ["Key wrapping using KEK (Key Encryption Key)", "Secure key transport protocols (TLS, out-of-band)", "Split knowledge and dual control for sensitive keys"],
+        "governance": ["Key distribution procedures documented", "Key receipt acknowledgment process"]
+      },
+      "keyActivities": [
+        { "activity": "Implement secure key distribution channels", "owner": "Key Management Team", "frequency": "Ongoing", "priority": "High" },
+        { "activity": "Use key wrapping for all key transport operations", "owner": "Key Management Team", "frequency": "Ongoing", "priority": "High" },
+        { "activity": "Enforce split knowledge for master keys", "owner": "Key Management Team", "frequency": "Per distribution", "priority": "High" },
+        { "activity": "Audit key distribution logs", "owner": "Internal Audit", "frequency": "Quarterly", "priority": "Medium" }
+      ],
+      "maturityLevels": {
+        "basic": { "description": "Manual key distribution with encrypted transport. Basic documentation." },
+        "mature": { "description": "Automated key distribution via KMS APIs. Key wrapping with HSM-protected KEK." },
+        "advanced": { "description": "Zero-knowledge key distribution protocols. Quantum key distribution (QKD) assessment." }
+      },
+      "frameworkMappings": {
+        "nist80053": ["SC-12(1)", "SC-12(2)"],
+        "nist800171": ["3.13.10"],
+        "pciDss": ["3.6.1", "3.6.1.3"],
+        "iso27001": ["A.8.24"],
+        "ccmV4": ["CEK-01"]
+      },
+      "sourceType": "constructed-indicative"
+    },
+    {
+      "slug": "kmgt-03",
+      "name": "Key Storage",
+      "domain": "KMGT",
+      "description": "Implement secure key storage using Hardware Security Modules (HSMs), key vaults, or equivalent tamper-resistant storage ensuring keys are never stored in plaintext.",
+      "requirements": {
+        "legal": ["PCI DSS 3.6.1 — Secure key storage", "NIST SP 800-57 — Key storage requirements"],
+        "technical": ["HSM (FIPS 140-2/3 Level 3) for master keys", "Cloud key vault (AWS KMS, Azure Key Vault, GCP Cloud KMS) for cloud workloads", "Keys never stored alongside encrypted data"],
+        "governance": ["Key storage standards documented", "HSM access restricted to key custodians"]
+      },
+      "keyActivities": [
+        { "activity": "Deploy HSMs for master key and KEK storage", "owner": "Key Management Team", "frequency": "One-time + maintenance", "priority": "High" },
+        { "activity": "Implement cloud key vaults for cloud-hosted keys", "owner": "Cloud Security", "frequency": "Per deployment", "priority": "High" },
+        { "activity": "Ensure separation of keys and encrypted data", "owner": "Security Architecture", "frequency": "Ongoing", "priority": "High" },
+        { "activity": "Audit key storage access controls", "owner": "Internal Audit", "frequency": "Quarterly", "priority": "Medium" }
+      ],
+      "maturityLevels": {
+        "basic": { "description": "Software-based key storage with access controls. Keys encrypted at rest." },
+        "mature": { "description": "HSM-backed key storage for critical keys. Cloud key vaults for cloud workloads. Strict access controls." },
+        "advanced": { "description": "FIPS 140-3 Level 3 HSMs. Geo-distributed key storage with HA. Automated HSM cluster management." }
+      },
+      "frameworkMappings": {
+        "nist80053": ["SC-12", "SC-12(1)"],
+        "nist800171": ["3.13.10"],
+        "pciDss": ["3.6.1", "3.6.1.2"],
+        "iso27001": ["A.8.24"],
+        "ccmV4": ["CEK-02"]
+      },
+      "sourceType": "constructed-indicative"
+    },
+    {
+      "slug": "kmgt-04",
+      "name": "Key Rotation",
+      "domain": "KMGT",
+      "description": "Implement automated cryptographic key rotation at defined intervals and upon compromise, ensuring encrypted data is re-encrypted with new keys without service disruption.",
+      "requirements": {
+        "legal": ["PCI DSS 3.6.1.4 — Crypto-period limits", "NIST SP 800-57 — Key rotation guidance"],
+        "technical": ["Automated key rotation mechanisms", "Re-encryption capability without downtime", "Key version tracking and management"],
+        "governance": ["Key rotation schedule defined per key type", "Emergency rotation procedures for compromised keys"]
+      },
+      "keyActivities": [
+        { "activity": "Define rotation schedules by key type (1 year for data keys, 2 years for master keys)", "owner": "Security Architecture", "frequency": "Annual", "priority": "High" },
+        { "activity": "Implement automated key rotation", "owner": "Key Management Team", "frequency": "Per schedule", "priority": "High" },
+        { "activity": "Test emergency key rotation procedures", "owner": "IT Security", "frequency": "Semi-annual", "priority": "High" },
+        { "activity": "Verify re-encryption after key rotation", "owner": "Key Management Team", "frequency": "Per rotation", "priority": "Medium" }
+      ],
+      "maturityLevels": {
+        "basic": { "description": "Manual key rotation at annual intervals. Limited re-encryption capability." },
+        "mature": { "description": "Automated key rotation for most key types. Key versioning with automatic re-encryption." },
+        "advanced": { "description": "Continuous key rotation with envelope encryption. Zero-downtime key rotation across all services." }
+      },
+      "frameworkMappings": {
+        "nist80053": ["SC-12"],
+        "nist800171": ["3.13.10"],
+        "pciDss": ["3.6.1.4"],
+        "iso27001": ["A.8.24"],
+        "ccmV4": ["CEK-01"]
+      },
+      "sourceType": "constructed-indicative"
+    },
+    {
+      "slug": "kmgt-05",
+      "name": "Key Destruction",
+      "domain": "KMGT",
+      "description": "Implement secure key destruction procedures ensuring retired or compromised keys are irreversibly destroyed and cannot be recovered, while maintaining audit trails.",
+      "requirements": {
+        "legal": ["PCI DSS 3.6.1.4 — Key retirement/replacement", "NIST SP 800-57 — Key destruction"],
+        "technical": ["Cryptographic erasure of keys in HSM/key vault", "Verification of key destruction completion", "Audit logging of all key destruction events"],
+        "governance": ["Key destruction procedures documented", "Dual-control for master key destruction"]
+      },
+      "keyActivities": [
+        { "activity": "Define key destruction procedures per key type", "owner": "Key Management Team", "frequency": "Annual", "priority": "High" },
+        { "activity": "Execute key destruction with dual control", "owner": "Key Management Team", "frequency": "Per retirement", "priority": "High" },
+        { "activity": "Verify key destruction and log audit trail", "owner": "Key Management Team", "frequency": "Per destruction", "priority": "High" },
+        { "activity": "Audit key destruction logs", "owner": "Internal Audit", "frequency": "Quarterly", "priority": "Medium" }
+      ],
+      "maturityLevels": {
+        "basic": { "description": "Manual key destruction with documented procedures. Audit logs maintained." },
+        "mature": { "description": "Automated key destruction workflows. HSM-verified key zeroization. Dual-control enforcement." },
+        "advanced": { "description": "Automated lifecycle-driven key destruction. Crypto-shredding for end-of-life data. Tamper-evident destruction logs." }
+      },
+      "frameworkMappings": {
+        "nist80053": ["SC-12(1)"],
+        "nist800171": ["3.13.10"],
+        "pciDss": ["3.6.1.4"],
+        "iso27001": ["A.8.24"],
+        "ccmV4": ["CEK-01"]
+      },
+      "sourceType": "constructed-indicative"
+    },
+    {
+      "slug": "kmgt-06",
+      "name": "BYOK / HYOK Management",
+      "domain": "KMGT",
+      "description": "Implement Bring Your Own Key (BYOK) or Hold Your Own Key (HYOK) strategies for cloud services, ensuring organizational control over encryption keys while leveraging cloud-native encryption.",
+      "requirements": {
+        "legal": ["BNM RMiT S10.47 — Customer control of encryption keys in cloud", "CSA CCM CEK-04 — Cloud key management"],
+        "technical": ["BYOK key import to cloud provider KMS", "HYOK with on-premises HSM for highly sensitive data", "Key wrapping for BYOK transport"],
+        "governance": ["BYOK/HYOK strategy documented", "Cloud provider key management capabilities assessed"]
+      },
+      "keyActivities": [
+        { "activity": "Assess BYOK vs. HYOK requirements per cloud workload", "owner": "Cloud Security", "frequency": "Per deployment", "priority": "High" },
+        { "activity": "Implement BYOK key import for cloud KMS", "owner": "Key Management Team", "frequency": "Per deployment", "priority": "High" },
+        { "activity": "Maintain on-premises HSM for HYOK scenarios", "owner": "Key Management Team", "frequency": "Ongoing", "priority": "Medium" },
+        { "activity": "Audit cloud key usage and access patterns", "owner": "Cloud Security", "frequency": "Monthly", "priority": "Medium" }
+      ],
+      "maturityLevels": {
+        "basic": { "description": "BYOK implemented for primary cloud provider. Basic key import procedures." },
+        "mature": { "description": "BYOK across all cloud providers. HYOK for highly sensitive workloads. Automated key lifecycle management." },
+        "advanced": { "description": "Multi-cloud BYOK with unified key management. HYOK with external key managers. Customer-controlled key hierarchy." }
+      },
+      "frameworkMappings": {
+        "nist80053": ["SC-12(1)"],
+        "nist800171": ["3.13.10"],
+        "pciDss": ["3.6.1"],
+        "iso27001": ["A.8.24"],
+        "ccmV4": ["CEK-04"]
+      },
+      "sourceType": "constructed-indicative"
+    },
+    {
+      "slug": "bkrc-01",
+      "name": "Backup Encryption",
+      "domain": "BKRC",
+      "description": "Ensure all backup data is encrypted both at rest and in transit using strong encryption algorithms, with backup encryption keys managed separately from production keys.",
+      "requirements": {
+        "legal": ["PCI DSS 3.5.1 — Encrypted backups", "BNM RMiT S10.46 — Encryption of backup data"],
+        "technical": ["AES-256 encryption for all backup data", "Backup encryption keys stored in separate key management system", "Encrypted tape/media for offsite backups"],
+        "governance": ["Backup encryption policy documented", "Backup encryption key rotation schedule"]
+      },
+      "keyActivities": [
+        { "activity": "Enable encryption on all backup jobs", "owner": "Backup Administrator", "frequency": "Ongoing", "priority": "High" },
+        { "activity": "Store backup keys separately from backup media", "owner": "Key Management Team", "frequency": "Ongoing", "priority": "High" },
+        { "activity": "Test encrypted backup restorability", "owner": "Backup Administrator", "frequency": "Monthly", "priority": "High" },
+        { "activity": "Rotate backup encryption keys", "owner": "Key Management Team", "frequency": "Annual", "priority": "Medium" }
+      ],
+      "maturityLevels": {
+        "basic": { "description": "Backups encrypted with software-based encryption. Keys stored in documented location." },
+        "mature": { "description": "Hardware-encrypted backups. Key management separated from backup infrastructure. Automated compliance verification." },
+        "advanced": { "description": "Immutable encrypted backups with client-side encryption. Zero-knowledge backup architecture." }
+      },
+      "frameworkMappings": {
+        "nist80053": ["CP-9", "SC-28"],
+        "nist800171": ["3.8.9"],
+        "pciDss": ["3.5.1"],
+        "iso27001": ["A.8.13", "A.8.24"],
+        "ccmV4": ["CEK-03"]
+      },
+      "sourceType": "constructed-indicative"
+    },
+    {
+      "slug": "bkrc-02",
+      "name": "Immutable Backups",
+      "domain": "BKRC",
+      "description": "Implement immutable backup storage ensuring that backup data cannot be modified, encrypted by ransomware, or deleted before the defined retention period expires.",
+      "requirements": {
+        "legal": ["Regulatory requirements for data retention integrity"],
+        "technical": ["WORM (Write Once Read Many) storage for backups", "Object lock or immutability policies on cloud backup storage", "Multi-factor authentication for backup deletion"],
+        "governance": ["Immutable backup policy documented", "Retention periods aligned with regulatory requirements"]
+      },
+      "keyActivities": [
+        { "activity": "Implement WORM storage for critical backups", "owner": "Backup Administrator", "frequency": "One-time + verification", "priority": "High" },
+        { "activity": "Enable object lock on cloud backup storage", "owner": "Cloud Operations", "frequency": "Ongoing", "priority": "High" },
+        { "activity": "Require MFA for any backup deletion requests", "owner": "IT Security", "frequency": "Ongoing", "priority": "High" },
+        { "activity": "Verify immutability controls quarterly", "owner": "Internal Audit", "frequency": "Quarterly", "priority": "Medium" }
+      ],
+      "maturityLevels": {
+        "basic": { "description": "Restricted delete permissions on backup storage. Basic retention enforcement." },
+        "mature": { "description": "WORM storage deployed. Object lock enabled. MFA for backup deletion. Compliance monitoring." },
+        "advanced": { "description": "Air-gapped immutable backups. Blockchain-verified backup integrity. Automated retention management." }
+      },
+      "frameworkMappings": {
+        "nist80053": ["CP-9(1)", "CP-9(8)"],
+        "nist800171": ["3.8.9"],
+        "pciDss": ["12.10.2"],
+        "iso27001": ["A.8.13"],
+        "ccmV4": ["DSP-17"]
+      },
+      "sourceType": "constructed-indicative"
+    },
+    {
+      "slug": "bkrc-03",
+      "name": "Air-Gapped Backup Copies",
+      "domain": "BKRC",
+      "description": "Maintain air-gapped (offline) backup copies that are physically isolated from production networks, providing last-resort recovery capability against ransomware and insider threats.",
+      "requirements": {
+        "legal": ["BNM RMiT S10.62 — Offline backup copies for critical systems"],
+        "technical": ["Physically isolated backup media (tape, detached disk)", "Secure transport and storage of offline media", "Regular refresh of air-gapped copies"],
+        "governance": ["Air-gapped backup schedule documented", "Chain of custody for offline media"]
+      },
+      "keyActivities": [
+        { "activity": "Create air-gapped backup copies of critical data", "owner": "Backup Administrator", "frequency": "Weekly", "priority": "High" },
+        { "activity": "Transport offline media to secure offsite storage", "owner": "Facilities / Logistics", "frequency": "Per schedule", "priority": "High" },
+        { "activity": "Test restore from air-gapped copies", "owner": "Backup Administrator", "frequency": "Quarterly", "priority": "High" },
+        { "activity": "Maintain chain of custody records", "owner": "Backup Administrator", "frequency": "Per transport", "priority": "Medium" }
+      ],
+      "maturityLevels": {
+        "basic": { "description": "Periodic tape backups stored offsite. Manual chain of custody tracking." },
+        "mature": { "description": "Scheduled air-gapped copies with automated verification. Secure vault storage. Regular restore testing." },
+        "advanced": { "description": "Multi-site air-gapped copies. Automated tape rotation with robotic libraries. Crypto-verified integrity on restore." }
+      },
+      "frameworkMappings": {
+        "nist80053": ["CP-9(3)", "CP-9(8)"],
+        "nist800171": ["3.8.9"],
+        "pciDss": ["12.10.2"],
+        "iso27001": ["A.8.13"],
+        "ccmV4": ["DSP-17"]
+      },
+      "sourceType": "constructed-indicative"
+    },
+    {
+      "slug": "bkrc-04",
+      "name": "Recovery Testing",
+      "domain": "BKRC",
+      "description": "Conduct regular backup recovery testing to verify data integrity, measure recovery time objectives (RTO), and validate recovery point objectives (RPO) for all critical systems.",
+      "requirements": {
+        "legal": ["BNM RMiT S10.63 — Regular recovery testing", "PCI DSS 12.10.2 — Test restore procedures"],
+        "technical": ["Automated recovery testing for critical databases", "RTO/RPO measurement and tracking", "Recovery test in isolated environment"],
+        "governance": ["Recovery testing schedule documented", "Test results reported to management"]
+      },
+      "keyActivities": [
+        { "activity": "Conduct monthly recovery tests for critical systems", "owner": "Backup Administrator", "frequency": "Monthly", "priority": "High" },
+        { "activity": "Measure and document RTO/RPO achievement", "owner": "IT Operations", "frequency": "Per test", "priority": "High" },
+        { "activity": "Conduct annual full disaster recovery exercise", "owner": "DR Coordinator", "frequency": "Annual", "priority": "High" },
+        { "activity": "Report recovery test results to management", "owner": "IT Operations", "frequency": "Quarterly", "priority": "Medium" }
+      ],
+      "maturityLevels": {
+        "basic": { "description": "Quarterly recovery tests for critical systems. Manual RTO/RPO tracking." },
+        "mature": { "description": "Monthly automated recovery testing. RTO/RPO dashboard. Annual DR exercise." },
+        "advanced": { "description": "Continuous recovery verification. Chaos engineering for backup systems. Automated failover testing." }
+      },
+      "frameworkMappings": {
+        "nist80053": ["CP-4", "CP-9"],
+        "nist800171": ["3.6.3"],
+        "pciDss": ["12.10.2"],
+        "iso27001": ["A.8.13", "A.8.14"],
+        "ccmV4": ["DSP-17"]
+      },
+      "sourceType": "constructed-indicative"
+    },
+    {
+      "slug": "bkrc-05",
+      "name": "Ransomware Resilience",
+      "domain": "BKRC",
+      "description": "Implement ransomware-specific backup resilience controls including detection of backup corruption, isolated recovery environments, and rapid restore capabilities.",
+      "requirements": {
+        "legal": ["BNM RMiT S10.64 — Ransomware preparedness"],
+        "technical": ["Anomaly detection on backup data patterns", "Clean room recovery environment", "Rapid restore capability meeting RTO < 4 hours for critical systems"],
+        "governance": ["Ransomware recovery playbook documented", "Tabletop exercises including ransomware scenarios"]
+      },
+      "keyActivities": [
+        { "activity": "Implement backup anomaly detection for ransomware indicators", "owner": "Backup Administrator", "frequency": "Ongoing", "priority": "High" },
+        { "activity": "Maintain clean room recovery environment", "owner": "IT Operations", "frequency": "Ongoing", "priority": "High" },
+        { "activity": "Conduct ransomware recovery tabletop exercise", "owner": "Incident Response Team", "frequency": "Semi-annual", "priority": "High" },
+        { "activity": "Validate rapid restore capabilities against RTO targets", "owner": "IT Operations", "frequency": "Quarterly", "priority": "High" }
+      ],
+      "maturityLevels": {
+        "basic": { "description": "Basic ransomware recovery procedures documented. Air-gapped backups available." },
+        "mature": { "description": "Ransomware detection on backup streams. Clean room recovery tested. Regular tabletop exercises." },
+        "advanced": { "description": "AI-driven ransomware detection in backups. Automated clean room provisioning. Sub-1-hour RTO for critical systems." }
+      },
+      "frameworkMappings": {
+        "nist80053": ["CP-2", "CP-4", "IR-4"],
+        "nist800171": ["3.6.1", "3.6.3"],
+        "pciDss": ["12.10.2"],
+        "iso27001": ["A.8.13", "A.5.24"],
+        "ccmV4": ["DSP-17"]
+      },
+      "sourceType": "constructed-indicative"
+    },
+    {
+      "slug": "dbsc-01",
+      "name": "Database Activity Monitoring",
+      "domain": "DBSC",
+      "description": "Implement Database Activity Monitoring (DAM) solutions to capture, alert, and report on all database activities including privileged user actions, schema changes, and data access patterns.",
+      "requirements": {
+        "legal": ["PCI DSS 10.2.1 — Log all access to cardholder data", "BNM RMiT S10.50 — Database monitoring"],
+        "technical": ["Agent-based or network-based DAM deployment", "Real-time alerting on suspicious queries", "Integration with SIEM for correlated analysis"],
+        "governance": ["DAM policy documenting monitored activities", "Alert review and escalation procedures"]
+      },
+      "keyActivities": [
+        { "activity": "Deploy DAM on all databases with sensitive data", "owner": "DBA Team", "frequency": "Ongoing", "priority": "High" },
+        { "activity": "Configure alerts for privileged actions and bulk data access", "owner": "IT Security", "frequency": "Ongoing", "priority": "High" },
+        { "activity": "Review DAM alerts and investigate anomalies", "owner": "SOC", "frequency": "Daily", "priority": "High" },
+        { "activity": "Generate compliance reports from DAM data", "owner": "Compliance Team", "frequency": "Monthly", "priority": "Medium" }
+      ],
+      "maturityLevels": {
+        "basic": { "description": "Native database audit logging enabled. Manual log review." },
+        "mature": { "description": "DAM deployed across all sensitive databases. Real-time alerting. SIEM integration." },
+        "advanced": { "description": "ML-based anomaly detection on database access patterns. Behavioral profiling of database users." }
+      },
+      "frameworkMappings": {
+        "nist80053": ["AU-12", "SI-4"],
+        "nist800171": ["3.3.1"],
+        "pciDss": ["10.2.1", "10.6.1"],
+        "iso27001": ["A.8.15", "A.8.16"],
+        "ccmV4": ["DSP-06"]
+      },
+      "sourceType": "constructed-indicative"
+    },
+    {
+      "slug": "dbsc-02",
+      "name": "Database Access Controls",
+      "domain": "DBSC",
+      "description": "Implement granular database access controls following the principle of least privilege, including role-based access, row-level security, and privileged access management for DBAs.",
+      "requirements": {
+        "legal": ["PCI DSS 7.2.1 — Restrict access based on need-to-know", "ISO 27001:2022 A.8.3 — Access restriction"],
+        "technical": ["Role-based access control (RBAC) for all databases", "Row-level security for multi-tenant databases", "Privileged access management (PAM) for DBA accounts"],
+        "governance": ["Database access review procedures", "Quarterly access certification"]
+      },
+      "keyActivities": [
+        { "activity": "Implement RBAC for all database instances", "owner": "DBA Team", "frequency": "Ongoing", "priority": "High" },
+        { "activity": "Deploy PAM for privileged database accounts", "owner": "IT Security", "frequency": "One-time + maintenance", "priority": "High" },
+        { "activity": "Conduct quarterly database access reviews", "owner": "Data Owners", "frequency": "Quarterly", "priority": "High" },
+        { "activity": "Remove dormant database accounts", "owner": "DBA Team", "frequency": "Monthly", "priority": "Medium" }
+      ],
+      "maturityLevels": {
+        "basic": { "description": "Basic RBAC on production databases. Shared admin accounts still in use." },
+        "mature": { "description": "Granular RBAC with row-level security. PAM for all DBA access. Regular access reviews." },
+        "advanced": { "description": "Just-in-time database access. Attribute-based access control (ABAC). Automated access certification." }
+      },
+      "frameworkMappings": {
+        "nist80053": ["AC-3", "AC-6"],
+        "nist800171": ["3.1.1", "3.1.2"],
+        "pciDss": ["7.2.1", "7.2.2"],
+        "iso27001": ["A.8.3", "A.5.15"],
+        "ccmV4": ["DSP-06"]
+      },
+      "sourceType": "constructed-indicative"
+    },
+    {
+      "slug": "dbsc-03",
+      "name": "Database Masking",
+      "domain": "DBSC",
+      "description": "Implement dynamic data masking (DDM) at the database level to protect sensitive data from unauthorized viewing while allowing authorized operations on masked data.",
+      "requirements": {
+        "legal": ["PCI DSS 3.3.1 — Mask PAN when displayed", "BNM RMiT S10.52 — Data masking for non-production"],
+        "technical": ["Dynamic masking rules per column and user role", "Static masking for non-production environments", "Masking that preserves referential integrity"],
+        "governance": ["Masking rules aligned with classification policy", "Exception process for masking bypass"]
+      },
+      "keyActivities": [
+        { "activity": "Identify columns requiring masking", "owner": "Data Governance Officer", "frequency": "Annual", "priority": "High" },
+        { "activity": "Implement dynamic masking rules", "owner": "DBA Team", "frequency": "Ongoing", "priority": "High" },
+        { "activity": "Mask all sensitive data in non-production environments", "owner": "DBA Team", "frequency": "Per refresh", "priority": "High" },
+        { "activity": "Audit masking bypass permissions", "owner": "IT Security", "frequency": "Quarterly", "priority": "Medium" }
+      ],
+      "maturityLevels": {
+        "basic": { "description": "Static masking for key sensitive fields. Manual non-production data sanitization." },
+        "mature": { "description": "Dynamic masking integrated with access controls. Automated non-production masking during refresh." },
+        "advanced": { "description": "Context-aware dynamic masking. Automated discovery and masking of new sensitive columns." }
+      },
+      "frameworkMappings": {
+        "nist80053": ["SC-28", "MP-6"],
+        "nist800171": ["3.13.16"],
+        "pciDss": ["3.3.1", "3.3.2"],
+        "iso27001": ["A.8.11"],
+        "ccmV4": ["DSP-05"]
+      },
+      "sourceType": "constructed-indicative"
+    },
+    {
+      "slug": "dbsc-04",
+      "name": "Database Virtual Patching",
+      "domain": "DBSC",
+      "description": "Implement virtual patching capabilities for databases to provide interim protection against known vulnerabilities when immediate database patching is not feasible.",
+      "requirements": {
+        "legal": ["PCI DSS 6.3.3 — Install critical patches within one month"],
+        "technical": ["Database firewall with virtual patching capability", "SQL injection prevention rules", "Regular virtual patch rule updates"],
+        "governance": ["Virtual patching policy and procedures", "Patch gap tracking and remediation timeline"]
+      },
+      "keyActivities": [
+        { "activity": "Deploy database firewall with virtual patching", "owner": "DBA Team", "frequency": "One-time + updates", "priority": "High" },
+        { "activity": "Apply virtual patches within 48 hours of critical CVE release", "owner": "IT Security", "frequency": "As needed", "priority": "High" },
+        { "activity": "Track virtual patch coverage vs. actual patching", "owner": "Vulnerability Management", "frequency": "Monthly", "priority": "Medium" },
+        { "activity": "Test virtual patch effectiveness", "owner": "Security Testing", "frequency": "Per patch", "priority": "Medium" }
+      ],
+      "maturityLevels": {
+        "basic": { "description": "Database firewall deployed for critical databases. Manual virtual patching." },
+        "mature": { "description": "Automated virtual patching for all databases. Virtual patch tracking dashboard." },
+        "advanced": { "description": "Zero-day virtual patching via behavioral analysis. Automated patch gap reporting." }
+      },
+      "frameworkMappings": {
+        "nist80053": ["SI-2", "SI-3"],
+        "nist800171": ["3.14.1"],
+        "pciDss": ["6.3.3"],
+        "iso27001": ["A.8.8"],
+        "ccmV4": ["DSP-06"]
+      },
+      "sourceType": "constructed-indicative"
+    },
+    {
+      "slug": "dbsc-05",
+      "name": "Database Encryption (Column-Level)",
+      "domain": "DBSC",
+      "description": "Implement column-level encryption for highly sensitive database fields (PAN, SSN, medical records) providing field-level protection independent of storage-level encryption.",
+      "requirements": {
+        "legal": ["PCI DSS 3.5.1 — Render PAN unreadable", "Healthcare regulations requiring field-level encryption"],
+        "technical": ["Column-level encryption for designated sensitive fields", "Application-transparent encryption where possible", "Key management for column encryption keys"],
+        "governance": ["Column encryption standards per data type", "Performance impact assessment"]
+      },
+      "keyActivities": [
+        { "activity": "Identify columns requiring column-level encryption", "owner": "Data Governance Officer", "frequency": "Annual", "priority": "High" },
+        { "activity": "Implement column encryption with appropriate algorithms", "owner": "DBA Team", "frequency": "Ongoing", "priority": "High" },
+        { "activity": "Manage column encryption keys separately", "owner": "Key Management Team", "frequency": "Ongoing", "priority": "High" },
+        { "activity": "Monitor performance impact and optimize", "owner": "DBA Team", "frequency": "Monthly", "priority": "Medium" }
+      ],
+      "maturityLevels": {
+        "basic": { "description": "Column encryption for PCI-scoped fields. Manual key management." },
+        "mature": { "description": "Column encryption for all highly sensitive fields. HSM-backed key management. Minimal performance impact." },
+        "advanced": { "description": "Always Encrypted with secure enclaves. Searchable encryption for encrypted columns." }
+      },
+      "frameworkMappings": {
+        "nist80053": ["SC-28", "SC-28(1)"],
+        "nist800171": ["3.13.16"],
+        "pciDss": ["3.5.1", "3.5.1.2"],
+        "iso27001": ["A.8.24"],
+        "ccmV4": ["CEK-03"]
+      },
+      "sourceType": "constructed-indicative"
+    },
+    {
+      "slug": "dmtk-01",
+      "name": "Static Data Masking",
+      "domain": "DMTK",
+      "description": "Implement static data masking (SDM) to create sanitized copies of production data for use in development, testing, training, and analytics environments.",
+      "requirements": {
+        "legal": ["BNM RMiT S10.52 — Non-production data masking", "PCI DSS 6.5.1 — No production PAN in test"],
+        "technical": ["SDM tool with consistent masking algorithms", "Referential integrity preservation across related tables", "Automated masking integrated with data refresh pipelines"],
+        "governance": ["SDM policy for non-production environments", "Masking verification before non-production release"]
+      },
+      "keyActivities": [
+        { "activity": "Deploy static masking tool for non-production data provisioning", "owner": "Data Protection Team", "frequency": "One-time + updates", "priority": "High" },
+        { "activity": "Define masking rules preserving referential integrity", "owner": "DBA Team", "frequency": "Annual", "priority": "High" },
+        { "activity": "Automate masking in data refresh pipelines", "owner": "DevOps", "frequency": "Per refresh", "priority": "High" },
+        { "activity": "Verify masking completeness before non-production release", "owner": "IT Security", "frequency": "Per refresh", "priority": "High" }
+      ],
+      "maturityLevels": {
+        "basic": { "description": "Manual data masking for key fields. Verification by sampling." },
+        "mature": { "description": "Automated SDM in data refresh pipeline. Full referential integrity. Verification reports." },
+        "advanced": { "description": "AI-driven masking rule discovery. Synthetic data generation. Fully automated DevOps integration." }
+      },
+      "frameworkMappings": {
+        "nist80053": ["MP-6", "SC-28"],
+        "nist800171": ["3.13.16"],
+        "pciDss": ["6.5.1"],
+        "iso27001": ["A.8.11"],
+        "ccmV4": ["DSP-05"]
+      },
+      "sourceType": "constructed-indicative"
+    },
+    {
+      "slug": "dmtk-02",
+      "name": "Dynamic Data Masking",
+      "domain": "DMTK",
+      "description": "Implement dynamic data masking (DDM) to mask sensitive data in real-time during query results based on user roles and privileges, without altering stored data.",
+      "requirements": {
+        "legal": ["PCI DSS 3.3.1 — Mask PAN when displayed", "Need-to-know enforcement regulations"],
+        "technical": ["DDM rules configured per column and role", "Masking applied at query result level", "No performance degradation beyond acceptable thresholds"],
+        "governance": ["DDM rules documented per data element", "Masking bypass exceptions tracked"]
+      },
+      "keyActivities": [
+        { "activity": "Identify data elements for dynamic masking", "owner": "Data Governance Officer", "frequency": "Annual", "priority": "High" },
+        { "activity": "Configure DDM rules by role and data sensitivity", "owner": "DBA Team", "frequency": "Ongoing", "priority": "High" },
+        { "activity": "Test DDM effectiveness for each role", "owner": "IT Security", "frequency": "Quarterly", "priority": "Medium" },
+        { "activity": "Monitor DDM performance impact", "owner": "DBA Team", "frequency": "Monthly", "priority": "Medium" }
+      ],
+      "maturityLevels": {
+        "basic": { "description": "Basic DDM for key sensitive fields (last 4 digits of PAN, etc.)." },
+        "mature": { "description": "Comprehensive DDM across all sensitive columns. Role-based masking policies." },
+        "advanced": { "description": "Context-aware DDM with real-time policy evaluation. Integration with data catalog for automatic rule generation." }
+      },
+      "frameworkMappings": {
+        "nist80053": ["AC-3", "SC-28"],
+        "nist800171": ["3.1.1"],
+        "pciDss": ["3.3.1"],
+        "iso27001": ["A.8.11"],
+        "ccmV4": ["DSP-05"]
+      },
+      "sourceType": "constructed-indicative"
+    },
+    {
+      "slug": "dmtk-03",
+      "name": "Format-Preserving Tokenization",
+      "domain": "DMTK",
+      "description": "Implement format-preserving tokenization (FPT) to replace sensitive data with tokens that maintain the original data format and length, enabling processing without schema changes.",
+      "requirements": {
+        "legal": ["PCI DSS 3.5.1 — Tokenization as protection method", "PCI TSP guidance for tokenization"],
+        "technical": ["FPE/FPT implementation (FF1, FF3-1 algorithms)", "Centralized token vault with high availability", "Token-to-data mapping secured with encryption"],
+        "governance": ["Tokenization scope documented", "Token vault security assessment"]
+      },
+      "keyActivities": [
+        { "activity": "Deploy format-preserving tokenization platform", "owner": "Security Engineering", "frequency": "One-time + updates", "priority": "High" },
+        { "activity": "Tokenize PAN and other sensitive identifiers", "owner": "Data Protection Team", "frequency": "Ongoing", "priority": "High" },
+        { "activity": "Secure token vault with encryption and access controls", "owner": "IT Security", "frequency": "Ongoing", "priority": "High" },
+        { "activity": "Test detokenization performance and availability", "owner": "Engineering", "frequency": "Quarterly", "priority": "Medium" }
+      ],
+      "maturityLevels": {
+        "basic": { "description": "Basic tokenization for PAN. Single-site token vault." },
+        "mature": { "description": "Enterprise tokenization platform. Multi-data-type support. HA token vault." },
+        "advanced": { "description": "Vaultless tokenization. Distributed FPT across multi-cloud. NIST-approved FPE algorithms." }
+      },
+      "frameworkMappings": {
+        "nist80053": ["SC-28"],
+        "nist800171": ["3.13.16"],
+        "pciDss": ["3.5.1", "3.5.1.1"],
+        "iso27001": ["A.8.11", "A.8.24"],
+        "ccmV4": ["DSP-05"]
+      },
+      "sourceType": "constructed-indicative"
+    },
+    {
+      "slug": "dmtk-04",
+      "name": "Test Data Management",
+      "domain": "DMTK",
+      "description": "Implement test data management (TDM) controls ensuring non-production environments never contain real sensitive data, using synthetic data generation or masked copies.",
+      "requirements": {
+        "legal": ["PCI DSS 6.5.1 — No production PAN in test/dev", "BNM RMiT S10.52 — Test data controls"],
+        "technical": ["Synthetic data generation capabilities", "Masked production data for integration testing", "Automated test data provisioning pipelines"],
+        "governance": ["TDM policy prohibiting production data in non-production", "Test data request and approval process"]
+      },
+      "keyActivities": [
+        { "activity": "Implement synthetic data generation for development", "owner": "Data Engineering", "frequency": "Ongoing", "priority": "High" },
+        { "activity": "Prohibit production data in non-production environments", "owner": "IT Security", "frequency": "Ongoing", "priority": "High" },
+        { "activity": "Scan non-production environments for production data", "owner": "IT Security", "frequency": "Monthly", "priority": "High" },
+        { "activity": "Automate test data provisioning with masking", "owner": "DevOps", "frequency": "Per request", "priority": "Medium" }
+      ],
+      "maturityLevels": {
+        "basic": { "description": "Manual data sanitization for test environments. Policy documented but enforcement is inconsistent." },
+        "mature": { "description": "Automated test data provisioning with masking. Regular scans for production data in non-production." },
+        "advanced": { "description": "AI-driven synthetic data generation. On-demand test data provisioning. Continuous compliance monitoring." }
+      },
+      "frameworkMappings": {
+        "nist80053": ["SA-11(8)", "MP-6"],
+        "nist800171": [],
+        "pciDss": ["6.5.1"],
+        "iso27001": ["A.8.11", "A.8.33"],
+        "ccmV4": ["DSP-05"]
+      },
+      "sourceType": "constructed-indicative"
+    },
+    {
+      "slug": "dmtk-05",
+      "name": "De-identification & Anonymization",
+      "domain": "DMTK",
+      "description": "Implement data de-identification and anonymization techniques for analytics, research, and data sharing scenarios to minimize re-identification risk.",
+      "requirements": {
+        "legal": ["Privacy regulations requiring anonymization for secondary use", "PDPA requirements for de-identification"],
+        "technical": ["K-anonymity, l-diversity, or t-closeness algorithms", "Re-identification risk assessment tools", "Differential privacy for analytics outputs"],
+        "governance": ["De-identification standards documented", "Re-identification risk assessment before data release"]
+      },
+      "keyActivities": [
+        { "activity": "Define de-identification standards per data type", "owner": "Data Governance Officer", "frequency": "Annual", "priority": "High" },
+        { "activity": "Implement anonymization algorithms for data sharing", "owner": "Data Engineering", "frequency": "Per project", "priority": "High" },
+        { "activity": "Conduct re-identification risk assessment", "owner": "Data Protection Team", "frequency": "Per release", "priority": "High" },
+        { "activity": "Monitor for re-identification attempts", "owner": "IT Security", "frequency": "Ongoing", "priority": "Medium" }
+      ],
+      "maturityLevels": {
+        "basic": { "description": "Basic pseudonymization for data sharing. Manual risk assessment." },
+        "mature": { "description": "Formal de-identification framework. K-anonymity applied. Automated risk scoring." },
+        "advanced": { "description": "Differential privacy for analytics. Privacy-preserving data publishing. Continuous re-identification risk monitoring." }
+      },
+      "frameworkMappings": {
+        "nist80053": ["SI-19"],
+        "nist800171": [],
+        "pciDss": [],
+        "iso27001": ["A.8.11"],
+        "ccmV4": ["DSP-05"]
+      },
+      "sourceType": "constructed-indicative"
+    },
+    {
+      "slug": "sdsp-01",
+      "name": "Media Sanitization",
+      "domain": "SDSP",
+      "description": "Implement secure media sanitization procedures for all storage media (HDDs, SSDs, tapes, USB drives) prior to disposal, reuse, or transfer, following NIST SP 800-88 guidelines.",
+      "requirements": {
+        "legal": ["NIST SP 800-88 Rev. 1 — Guidelines for Media Sanitization", "PCI DSS 9.4.6 — Destroy media when no longer needed"],
+        "technical": ["NIST 800-88 clear/purge/destroy methods", "SSD-specific sanitization (crypto erase, block erase)", "Degaussing for magnetic media"],
+        "governance": ["Media sanitization procedures per media type", "Certificate of destruction for all sanitized media"]
+      },
+      "keyActivities": [
+        { "activity": "Sanitize all storage media before disposal or reuse", "owner": "IT Operations", "frequency": "Per disposal", "priority": "High" },
+        { "activity": "Use appropriate method per media type (clear/purge/destroy)", "owner": "IT Operations", "frequency": "Per disposal", "priority": "High" },
+        { "activity": "Generate certificate of destruction for each media item", "owner": "IT Operations", "frequency": "Per disposal", "priority": "High" },
+        { "activity": "Audit media sanitization records", "owner": "Internal Audit", "frequency": "Quarterly", "priority": "Medium" }
+      ],
+      "maturityLevels": {
+        "basic": { "description": "Manual disk wiping tools. Paper-based destruction records." },
+        "mature": { "description": "Certified sanitization tools. Automated certificate generation. Media tracking from asset register." },
+        "advanced": { "description": "Automated sanitization workflows triggered by asset decommission. NIST 800-88 compliant with cryptographic verification." }
+      },
+      "frameworkMappings": {
+        "nist80053": ["MP-6", "MP-6(1)"],
+        "nist800171": ["3.8.3"],
+        "pciDss": ["9.4.6"],
+        "iso27001": ["A.8.10"],
+        "ccmV4": ["DSP-15"]
+      },
+      "sourceType": "constructed-indicative"
+    },
+    {
+      "slug": "sdsp-02",
+      "name": "Crypto-Shredding",
+      "domain": "SDSP",
+      "description": "Implement crypto-shredding (cryptographic erasure) as a data disposal method by destroying encryption keys, rendering encrypted data permanently unrecoverable.",
+      "requirements": {
+        "legal": ["NIST SP 800-88 — Cryptographic erasure as purge method", "Cloud-specific data disposal requirements"],
+        "technical": ["Encryption key destruction verified and logged", "All copies of encryption key destroyed (primary + backup)", "Verification that encrypted data is unrecoverable"],
+        "governance": ["Crypto-shredding procedures documented", "Key destruction audit trail maintained"]
+      },
+      "keyActivities": [
+        { "activity": "Identify data sets eligible for crypto-shredding", "owner": "Data Governance Officer", "frequency": "As needed", "priority": "High" },
+        { "activity": "Destroy all copies of encryption keys for target data", "owner": "Key Management Team", "frequency": "Per disposal", "priority": "High" },
+        { "activity": "Verify key destruction across all key stores", "owner": "IT Security", "frequency": "Per disposal", "priority": "High" },
+        { "activity": "Document crypto-shredding with audit trail", "owner": "Key Management Team", "frequency": "Per disposal", "priority": "Medium" }
+      ],
+      "maturityLevels": {
+        "basic": { "description": "Crypto-shredding available for specific use cases. Manual key destruction." },
+        "mature": { "description": "Crypto-shredding standard practice for cloud data disposal. Automated key destruction workflows." },
+        "advanced": { "description": "Crypto-shredding integrated with data lifecycle management. Automated verification across multi-cloud key stores." }
+      },
+      "frameworkMappings": {
+        "nist80053": ["MP-6", "SC-12(1)"],
+        "nist800171": ["3.8.3"],
+        "pciDss": ["3.1.1"],
+        "iso27001": ["A.8.10"],
+        "ccmV4": ["DSP-15"]
+      },
+      "sourceType": "constructed-indicative"
+    },
+    {
+      "slug": "sdsp-03",
+      "name": "Certificate of Destruction",
+      "domain": "SDSP",
+      "description": "Maintain formal certificates of destruction for all data disposal activities, providing auditable evidence of secure data destruction for compliance and legal purposes.",
+      "requirements": {
+        "legal": ["Regulatory requirements for destruction documentation", "Legal hold obligations before destruction"],
+        "technical": ["Automated certificate generation linked to disposal workflow", "Digital signatures on certificates", "Certificate repository with retention"],
+        "governance": ["Certificate of destruction template standardized", "Certificates retained for defined period (minimum 7 years)"]
+      },
+      "keyActivities": [
+        { "activity": "Generate certificate of destruction for each disposal event", "owner": "IT Operations", "frequency": "Per disposal", "priority": "High" },
+        { "activity": "Include serial numbers, methods, dates, and responsible parties", "owner": "IT Operations", "frequency": "Per disposal", "priority": "High" },
+        { "activity": "Retain certificates for minimum 7 years", "owner": "Records Management", "frequency": "Ongoing", "priority": "Medium" },
+        { "activity": "Audit certificate completeness and accuracy", "owner": "Internal Audit", "frequency": "Semi-annual", "priority": "Medium" }
+      ],
+      "maturityLevels": {
+        "basic": { "description": "Paper-based certificates of destruction. Manual tracking." },
+        "mature": { "description": "Digital certificates with e-signatures. Linked to asset management system. Automated retention." },
+        "advanced": { "description": "Blockchain-anchored certificates. Automated certificate generation from disposal workflow. Full chain of custody." }
+      },
+      "frameworkMappings": {
+        "nist80053": ["MP-6(1)"],
+        "nist800171": ["3.8.3"],
+        "pciDss": ["9.4.6"],
+        "iso27001": ["A.8.10"],
+        "ccmV4": ["DSP-15"]
+      },
+      "sourceType": "constructed-indicative"
+    },
+    {
+      "slug": "sdsp-04",
+      "name": "Cloud Data Deletion",
+      "domain": "SDSP",
+      "description": "Implement and verify secure data deletion in cloud environments, addressing challenges of multi-tenancy, storage replication, and backup copies across cloud regions.",
+      "requirements": {
+        "legal": ["CSA CCM DSP-15 — Cloud data disposal", "BNM RMiT S10.65 — Cloud data deletion verification"],
+        "technical": ["Cloud provider deletion API with verification", "Crypto-shredding for cloud-stored data", "Deletion verification across all replicas and backups"],
+        "governance": ["Cloud data deletion procedures documented", "Cloud provider data disposal SLA reviewed"]
+      },
+      "keyActivities": [
+        { "activity": "Document cloud data deletion procedures per provider", "owner": "Cloud Security", "frequency": "Annual", "priority": "High" },
+        { "activity": "Execute data deletion with verification for decommissioned cloud resources", "owner": "Cloud Operations", "frequency": "Per decommission", "priority": "High" },
+        { "activity": "Verify deletion across all replicas and backup copies", "owner": "Cloud Security", "frequency": "Per deletion", "priority": "High" },
+        { "activity": "Review cloud provider data disposal certifications", "owner": "Vendor Management", "frequency": "Annual", "priority": "Medium" }
+      ],
+      "maturityLevels": {
+        "basic": { "description": "Standard cloud deletion APIs used. Provider attestation relied upon." },
+        "mature": { "description": "Crypto-shredding for cloud data. Automated deletion verification. Provider SOC 2 review." },
+        "advanced": { "description": "Multi-cloud deletion orchestration. Customer-verifiable deletion. Automated compliance reporting." }
+      },
+      "frameworkMappings": {
+        "nist80053": ["MP-6"],
+        "nist800171": ["3.8.3"],
+        "pciDss": ["3.1.1", "9.4.6"],
+        "iso27001": ["A.8.10"],
+        "ccmV4": ["DSP-15"]
+      },
+      "sourceType": "constructed-indicative"
+    },
+    {
+      "slug": "sdsp-05",
+      "name": "End-of-Life Data Management",
+      "domain": "SDSP",
+      "description": "Implement comprehensive end-of-life data management covering data retention enforcement, legal hold management, and systematic disposal of data that has exceeded its retention period.",
+      "requirements": {
+        "legal": ["Data retention regulations", "Legal hold requirements", "Right to erasure obligations"],
+        "technical": ["Automated retention policy enforcement", "Legal hold management system", "Data lifecycle management tools"],
+        "governance": ["Data retention schedule maintained", "Legal hold procedures documented"]
+      },
+      "keyActivities": [
+        { "activity": "Maintain data retention schedule aligned with regulations", "owner": "Records Management", "frequency": "Annual", "priority": "High" },
+        { "activity": "Implement automated retention enforcement", "owner": "Data Engineering", "frequency": "Ongoing", "priority": "High" },
+        { "activity": "Manage legal holds preventing premature disposal", "owner": "Legal", "frequency": "Per matter", "priority": "High" },
+        { "activity": "Dispose of data exceeding retention period", "owner": "Records Management", "frequency": "Quarterly", "priority": "Medium" }
+      ],
+      "maturityLevels": {
+        "basic": { "description": "Manual retention tracking. Basic retention schedule documented." },
+        "mature": { "description": "Automated retention enforcement. Legal hold management system. Regular disposal cycles." },
+        "advanced": { "description": "AI-driven retention classification. Automated disposal workflows. Privacy-aware data lifecycle management." }
+      },
+      "frameworkMappings": {
+        "nist80053": ["MP-6", "SI-12"],
+        "nist800171": ["3.8.3"],
+        "pciDss": ["3.1.1"],
+        "iso27001": ["A.8.10", "A.5.33"],
+        "ccmV4": ["DSP-15", "DSP-16"]
+      },
+      "sourceType": "constructed-indicative"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "_meta": { "title": "Backup & Recovery Technologies", "sourceType": "constructed-indicative" },
+  "technology": "Backup & Recovery",
+  "description": "Enterprise backup and recovery technologies covering encrypted backups, immutable storage, air-gapped copies, and ransomware resilience strategies.",
+  "architecture": {
+    "diagram": "[Production Systems]\n       |\n  [Backup Agent/API]\n       |\n  [Backup Server/Appliance]\n       |\n  +----+----+----+\n  |    |    |    |\n[Disk] [Tape] [Cloud] [Air-Gap]\n(Primary) (Offsite) (DR) (Immutable)"
+  },
+  "strategies": [
+    { "strategy": "3-2-1 Rule", "description": "3 copies of data, on 2 different media types, with 1 copy offsite", "status": "Baseline" },
+    { "strategy": "3-2-1-1-0", "description": "3-2-1 plus 1 immutable or air-gapped copy, with 0 errors (verified recovery)", "status": "Recommended for ransomware resilience" },
+    { "strategy": "Continuous Data Protection (CDP)", "description": "Real-time replication capturing every change for near-zero RPO", "useCase": "Mission-critical databases and applications" }
+  ],
+  "immutabilityOptions": [
+    { "option": "WORM Storage", "description": "Write Once Read Many — hardware or software enforced", "vendors": "NetApp SnapLock, Dell EMC Compliance Mode" },
+    { "option": "Cloud Object Lock", "description": "Cloud-native immutability for object storage", "vendors": "AWS S3 Object Lock, Azure Immutable Blob, GCP Bucket Lock" },
+    { "option": "Air-Gapped / Offline", "description": "Physically isolated backup media disconnected from network", "vendors": "Tape libraries, removable disk systems" },
+    { "option": "Blockchain-Verified", "description": "Backup integrity verified via blockchain hash anchoring", "vendors": "Emerging solutions" }
+  ],
+  "vendorLandscape": [
+    { "vendor": "Veeam Backup & Replication", "strengths": "Immutable backups, ransomware detection, broad platform support" },
+    { "vendor": "Commvault", "strengths": "Enterprise backup, cloud-native protection, compliance features" },
+    { "vendor": "Cohesity DataProtect", "strengths": "Immutable architecture, anti-ransomware, data management" },
+    { "vendor": "Rubrik", "strengths": "Zero-trust data security, immutable by design, ransomware recovery" },
+    { "vendor": "Dell EMC PowerProtect", "strengths": "Isolated recovery vault (Cyber Recovery), deduplication" }
+  ],
+  "ransomwareResilience": {
+    "detection": ["Anomaly detection on backup data patterns (encryption, compression changes)", "Honeypot files in backup sets", "Change rate monitoring"],
+    "prevention": ["Immutable backups with retention lock", "Air-gapped copies", "MFA for backup deletion", "Separation of backup admin credentials"],
+    "recovery": ["Clean room recovery environment", "Orchestrated recovery runbooks", "Pre-validated recovery images"]
+  },
+  "malaysianContext": {
+    "bnmRmit": "BNM RMiT S10.62-S10.64 require encrypted backups, offline/air-gapped copies for critical systems, and regular recovery testing.",
+    "considerations": ["Data residency — backup copies stored within Malaysia for regulated data", "Recovery site within acceptable distance for operational resilience"]
+  },
+  "sourceType": "constructed-indicative"
+}

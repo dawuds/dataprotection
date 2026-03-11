@@ -1,0 +1,68 @@
+{
+  "_meta": { "title": "Data Protection Risk Management", "sourceType": "constructed-indicative" },
+  "methodology": {
+    "purpose": "Assess, quantify, and manage risks to data confidentiality, integrity, and availability across the organization's data lifecycle.",
+    "scope": "All organizational data assets classified as Internal, Confidential, or Restricted, across on-premises and cloud environments.",
+    "alignedFrameworks": [
+      { "framework": "NIST SP 800-30 Rev. 1", "description": "Guide for Conducting Risk Assessments" },
+      { "framework": "ISO 27005:2022", "description": "Information Security Risk Management" },
+      { "framework": "NIST CSF 2.0", "description": "Cybersecurity Framework Risk Management" }
+    ],
+    "riskAssessmentProcess": [
+      { "step": 1, "name": "Asset Identification", "description": "Identify data assets, classifications, owners, and processing activities" },
+      { "step": 2, "name": "Threat Identification", "description": "Identify threats to data confidentiality, integrity, and availability" },
+      { "step": 3, "name": "Vulnerability Assessment", "description": "Assess control weaknesses and exposure to identified threats" },
+      { "step": 4, "name": "Risk Analysis", "description": "Calculate inherent risk using 5x5 likelihood vs. impact matrix" },
+      { "step": 5, "name": "Control Evaluation", "description": "Evaluate existing data protection controls and their effectiveness" },
+      { "step": 6, "name": "Residual Risk Calculation", "description": "Calculate residual risk after control effectiveness adjustment" },
+      { "step": 7, "name": "Treatment Planning", "description": "Define treatment plans for risks exceeding risk appetite" }
+    ],
+    "reviewSchedule": {
+      "fullAssessment": "Annually or after significant change (merger, new regulations, major breach)",
+      "quarterlyReview": "Review top risks, control effectiveness, and treatment progress",
+      "triggerBasedReview": "Post-incident, new technology deployment, regulatory change"
+    }
+  },
+  "matrix": {
+    "headers": {
+      "columns": ["Negligible (1)", "Minor (2)", "Moderate (3)", "Major (4)", "Severe (5)"],
+      "rows": ["Almost Certain (5)", "Likely (4)", "Possible (3)", "Unlikely (2)", "Rare (1)"]
+    },
+    "cells": [
+      [{ "score": 5, "level": "Medium" }, { "score": 10, "level": "High" }, { "score": 15, "level": "High" }, { "score": 20, "level": "Critical" }, { "score": 25, "level": "Critical" }],
+      [{ "score": 4, "level": "Low" }, { "score": 8, "level": "Medium" }, { "score": 12, "level": "High" }, { "score": 16, "level": "High" }, { "score": 20, "level": "Critical" }],
+      [{ "score": 3, "level": "Low" }, { "score": 6, "level": "Medium" }, { "score": 9, "level": "Medium" }, { "score": 12, "level": "High" }, { "score": 15, "level": "High" }],
+      [{ "score": 2, "level": "Very Low" }, { "score": 4, "level": "Low" }, { "score": 6, "level": "Medium" }, { "score": 8, "level": "Medium" }, { "score": 10, "level": "High" }],
+      [{ "score": 1, "level": "Very Low" }, { "score": 2, "level": "Very Low" }, { "score": 3, "level": "Low" }, { "score": 4, "level": "Low" }, { "score": 5, "level": "Medium" }]
+    ],
+    "riskLevels": [
+      { "level": "Critical", "range": "20-25", "color": "#991B1B", "action": "Immediate executive attention. Treat within 30 days.", "reportingFrequency": "Weekly" },
+      { "level": "High", "range": "10-19", "color": "#DC2626", "action": "Senior management attention. Treat within 90 days.", "reportingFrequency": "Monthly" },
+      { "level": "Medium", "range": "5-9", "color": "#F59E0B", "action": "Management attention. Treat within 180 days.", "reportingFrequency": "Quarterly" },
+      { "level": "Low", "range": "3-4", "color": "#16A34A", "action": "Monitor. Accept or treat during normal planning cycles.", "reportingFrequency": "Semi-annually" },
+      { "level": "Very Low", "range": "1-2", "color": "#9CA3AF", "action": "Accept. Monitor for changes.", "reportingFrequency": "Annually" }
+    ]
+  },
+  "register": {
+    "risks": [
+      { "id": "DP-R01", "title": "Unencrypted Sensitive Data at Rest", "description": "Sensitive data stored without encryption on databases, file shares, or endpoints may be exposed through unauthorized access, theft, or improper disposal.", "likelihood": 4, "impact": 5, "inherentRisk": 20, "inherentRiskLevel": "Critical", "controls": ["EART-01", "EART-02", "EART-04"], "residualRisk": 8, "residualRiskLevel": "Medium", "treatment": "Mitigate", "owner": "IT Security Manager", "domain": "EART" },
+      { "id": "DP-R02", "title": "Data Exfiltration via Insiders", "description": "Authorized users may intentionally or accidentally exfiltrate sensitive data via email, USB, cloud storage, or printing.", "likelihood": 4, "impact": 4, "inherentRisk": 16, "inherentRiskLevel": "High", "controls": ["DLPS-01", "DLPS-02", "DLPS-04"], "residualRisk": 8, "residualRiskLevel": "Medium", "treatment": "Mitigate", "owner": "DLP Administrator", "domain": "DLPS" },
+      { "id": "DP-R03", "title": "Ransomware Encrypting Backup Data", "description": "Ransomware attack encrypting production and backup data, preventing recovery.", "likelihood": 3, "impact": 5, "inherentRisk": 15, "inherentRiskLevel": "High", "controls": ["BKRC-02", "BKRC-03", "BKRC-05"], "residualRisk": 6, "residualRiskLevel": "Medium", "treatment": "Mitigate", "owner": "Backup Administrator", "domain": "BKRC" },
+      { "id": "DP-R04", "title": "Cryptographic Key Compromise", "description": "Encryption keys stolen or exposed, allowing decryption of all data protected by those keys.", "likelihood": 2, "impact": 5, "inherentRisk": 10, "inherentRiskLevel": "High", "controls": ["KMGT-03", "KMGT-04", "KMGT-05"], "residualRisk": 4, "residualRiskLevel": "Low", "treatment": "Mitigate", "owner": "Key Management Lead", "domain": "KMGT" },
+      { "id": "DP-R05", "title": "Cloud Storage Misconfiguration", "description": "Cloud storage buckets or blobs misconfigured with public access, exposing sensitive data to the internet.", "likelihood": 4, "impact": 5, "inherentRisk": 20, "inherentRiskLevel": "Critical", "controls": ["EART-04", "DLPS-03", "DCLS-04"], "residualRisk": 6, "residualRiskLevel": "Medium", "treatment": "Mitigate", "owner": "Cloud Security Lead", "domain": "EART" },
+      { "id": "DP-R06", "title": "Weak TLS Configuration", "description": "Services using deprecated TLS versions or weak cipher suites, enabling interception of data in transit.", "likelihood": 3, "impact": 4, "inherentRisk": 12, "inherentRiskLevel": "High", "controls": ["EITR-01", "EITR-02"], "residualRisk": 4, "residualRiskLevel": "Low", "treatment": "Mitigate", "owner": "IT Security Manager", "domain": "EITR" },
+      { "id": "DP-R07", "title": "Database Breach via SQL Injection", "description": "Attackers exploiting SQL injection vulnerabilities to extract database contents containing sensitive data.", "likelihood": 3, "impact": 5, "inherentRisk": 15, "inherentRiskLevel": "High", "controls": ["DBSC-04", "DBSC-01", "DBSC-05"], "residualRisk": 6, "residualRiskLevel": "Medium", "treatment": "Mitigate", "owner": "DBA Team Lead", "domain": "DBSC" },
+      { "id": "DP-R08", "title": "Production Data in Non-Production", "description": "Real production data (including PII and PAN) used in development and testing environments with weaker security controls.", "likelihood": 4, "impact": 4, "inherentRisk": 16, "inherentRiskLevel": "High", "controls": ["DMTK-01", "DMTK-04"], "residualRisk": 6, "residualRiskLevel": "Medium", "treatment": "Mitigate", "owner": "Data Protection Lead", "domain": "DMTK" },
+      { "id": "DP-R09", "title": "Improper Data Disposal", "description": "Sensitive data on decommissioned hardware or returned leased equipment recovered due to inadequate sanitization.", "likelihood": 3, "impact": 4, "inherentRisk": 12, "inherentRiskLevel": "High", "controls": ["SDSP-01", "SDSP-03"], "residualRisk": 4, "residualRiskLevel": "Low", "treatment": "Mitigate", "owner": "IT Operations Manager", "domain": "SDSP" },
+      { "id": "DP-R10", "title": "Third-Party Data Breach", "description": "Data exposed through compromised vendor or service provider with access to organizational data.", "likelihood": 3, "impact": 4, "inherentRisk": 12, "inherentRiskLevel": "High", "controls": ["EITR-04", "DCLS-03", "DMTK-03"], "residualRisk": 8, "residualRiskLevel": "Medium", "treatment": "Mitigate", "owner": "Vendor Management", "domain": "EITR" },
+      { "id": "DP-R11", "title": "Insufficient Data Classification", "description": "Data not properly classified leading to inadequate protection controls and regulatory non-compliance.", "likelihood": 4, "impact": 3, "inherentRisk": 12, "inherentRiskLevel": "High", "controls": ["DCLS-01", "DCLS-02", "DCLS-04"], "residualRisk": 6, "residualRiskLevel": "Medium", "treatment": "Mitigate", "owner": "Data Governance Officer", "domain": "DCLS" },
+      { "id": "DP-R12", "title": "API Data Over-Exposure", "description": "APIs returning excessive data beyond what is needed, exposing sensitive fields to unauthorized consumers.", "likelihood": 4, "impact": 4, "inherentRisk": 16, "inherentRiskLevel": "High", "controls": ["EITR-04", "DMTK-02"], "residualRisk": 8, "residualRiskLevel": "Medium", "treatment": "Mitigate", "owner": "API Platform Lead", "domain": "EITR" },
+      { "id": "DP-R13", "title": "Backup Recovery Failure", "description": "Backup data cannot be restored when needed due to corruption, encryption key loss, or untested procedures.", "likelihood": 2, "impact": 5, "inherentRisk": 10, "inherentRiskLevel": "High", "controls": ["BKRC-04", "EART-05", "KMGT-03"], "residualRisk": 4, "residualRiskLevel": "Low", "treatment": "Mitigate", "owner": "Backup Administrator", "domain": "BKRC" },
+      { "id": "DP-R14", "title": "Certificate Expiry Causing Outage", "description": "Expired TLS certificates causing service outages and potentially falling back to unencrypted communications.", "likelihood": 3, "impact": 3, "inherentRisk": 9, "inherentRiskLevel": "Medium", "controls": ["EITR-02"], "residualRisk": 3, "residualRiskLevel": "Low", "treatment": "Mitigate", "owner": "PKI Team Lead", "domain": "EITR" },
+      { "id": "DP-R15", "title": "DLP Evasion by Sophisticated Users", "description": "Users circumventing DLP controls using encryption, steganography, or alternative channels not covered by DLP.", "likelihood": 3, "impact": 3, "inherentRisk": 9, "inherentRiskLevel": "Medium", "controls": ["DLPS-05", "DLPS-02"], "residualRisk": 6, "residualRiskLevel": "Medium", "treatment": "Mitigate", "owner": "DLP Administrator", "domain": "DLPS" },
+      { "id": "DP-R16", "title": "Supply Chain File Transfer Compromise", "description": "Compromise of file transfer systems used with partners and suppliers (similar to MOVEit breach).", "likelihood": 3, "impact": 4, "inherentRisk": 12, "inherentRiskLevel": "High", "controls": ["EITR-01", "EART-03", "DLPS-01"], "residualRisk": 6, "residualRiskLevel": "Medium", "treatment": "Mitigate", "owner": "IT Security Manager", "domain": "EITR" },
+      { "id": "DP-R17", "title": "Cloud Key Management Dependency", "description": "Over-reliance on cloud provider key management without BYOK/HYOK, limiting key control and portability.", "likelihood": 3, "impact": 3, "inherentRisk": 9, "inherentRiskLevel": "Medium", "controls": ["KMGT-06"], "residualRisk": 4, "residualRiskLevel": "Low", "treatment": "Mitigate", "owner": "Cloud Security Lead", "domain": "KMGT" },
+      { "id": "DP-R18", "title": "Data Breach Notification Non-Compliance", "description": "Failure to detect and report data breaches within regulatory timelines due to inadequate monitoring.", "likelihood": 2, "impact": 4, "inherentRisk": 8, "inherentRiskLevel": "Medium", "controls": ["DBSC-01", "DLPS-05"], "residualRisk": 4, "residualRiskLevel": "Low", "treatment": "Mitigate", "owner": "DPO / Compliance", "domain": "DLPS" }
+    ]
+  }
+}

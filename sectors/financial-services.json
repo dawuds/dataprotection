@@ -1,0 +1,25 @@
+{
+  "_meta": { "title": "Financial Services Data Protection", "sourceType": "constructed-indicative" },
+  "sector": "Financial Services",
+  "regulatoryLandscape": [
+    { "regulation": "BNM RMiT", "jurisdiction": "Malaysia", "relevantSections": ["S10.4 (Classification)", "S10.46-48 (Encryption)", "S10.50 (DB Monitoring)", "S10.52 (Masking)", "S10.55 (DLP)", "S10.62-64 (Backup)"] },
+    { "regulation": "PCI DSS v4.0", "jurisdiction": "Global", "relevantSections": ["Req 3 (Stored Data)", "Req 4 (In Transit)", "Req 9 (Physical)", "Req 12 (Policies)"] },
+    { "regulation": "MAS TRM", "jurisdiction": "Singapore", "relevantSections": ["Sections on data protection, encryption, and key management"] },
+    { "regulation": "SOX", "jurisdiction": "US-listed companies", "relevantSections": ["Section 404 — data integrity controls for financial reporting"] }
+  ],
+  "keyDataTypes": [
+    { "type": "Cardholder Data (CHD)", "classification": "Restricted", "protection": "Encryption (AES-256), tokenization, or truncation per PCI DSS Req 3" },
+    { "type": "Customer PII", "classification": "Confidential", "protection": "Encryption at rest and in transit, access controls, DLP" },
+    { "type": "Financial Transaction Data", "classification": "Confidential", "protection": "Database encryption, activity monitoring, integrity controls" },
+    { "type": "Internal Financial Reports", "classification": "Confidential", "protection": "Access controls, DLP, file encryption for board materials" },
+    { "type": "SWIFT Messages", "classification": "Restricted", "protection": "End-to-end encryption, network segmentation, SWIFT CSP compliance" }
+  ],
+  "bnmSpecificRequirements": [
+    { "ref": "S10.46", "requirement": "Confidential data at rest must be encrypted using strong cryptographic algorithms", "implementation": "AES-256 TDE for databases, FDE for endpoints, CMK for cloud" },
+    { "ref": "S10.47", "requirement": "Financial institutions must maintain control of encryption keys for cloud-hosted data", "implementation": "BYOK for cloud KMS, on-premises HSM for master keys" },
+    { "ref": "S10.48", "requirement": "Data in transit must be encrypted across all network channels", "implementation": "TLS 1.2+ for all communications, mTLS for internal APIs" },
+    { "ref": "S10.55", "requirement": "Implement data leakage prevention controls", "implementation": "Multi-channel DLP (network, endpoint, cloud, email)" },
+    { "ref": "S10.62", "requirement": "Maintain encrypted backup copies with offline/air-gapped storage", "implementation": "3-2-1-1-0 backup strategy with immutable and air-gapped copies" }
+  ],
+  "sourceType": "constructed-indicative"
+}

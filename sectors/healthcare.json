@@ -1,0 +1,22 @@
+{
+  "_meta": { "title": "Healthcare Data Protection", "sourceType": "constructed-indicative" },
+  "sector": "Healthcare",
+  "regulatoryLandscape": [
+    { "regulation": "Malaysian Medical Council Guidelines", "jurisdiction": "Malaysia", "relevantSections": ["Patient data confidentiality requirements"] },
+    { "regulation": "PDPA Malaysia", "jurisdiction": "Malaysia", "relevantSections": ["Section 9 (Security Principle) for health data"] },
+    { "regulation": "HIPAA", "jurisdiction": "US (reference)", "relevantSections": ["Security Rule — technical safeguards for ePHI"] }
+  ],
+  "keyDataTypes": [
+    { "type": "Electronic Health Records (EHR)", "classification": "Restricted", "protection": "Column-level encryption, strict RBAC, audit logging, data masking for non-clinical access" },
+    { "type": "Diagnostic Imaging (DICOM)", "classification": "Confidential", "protection": "Encryption at rest, access controls, de-identification for research" },
+    { "type": "Lab Results", "classification": "Confidential", "protection": "Encryption in transit (HL7/FHIR over TLS), access controls" },
+    { "type": "Insurance Claims", "classification": "Confidential", "protection": "Tokenization of IC numbers, encryption, DLP" },
+    { "type": "Genomic Data", "classification": "Restricted", "protection": "Strong encryption, access controls, de-identification, consent management" }
+  ],
+  "interoperabilityStandards": [
+    { "standard": "HL7 FHIR", "description": "Fast Healthcare Interoperability Resources — RESTful API standard for health data exchange", "securityRequirements": ["TLS 1.2+ for all FHIR API calls", "OAuth 2.0 / SMART on FHIR for authorization", "Audit logging of all FHIR resource access"] },
+    { "standard": "DICOM", "description": "Digital Imaging and Communications in Medicine", "securityRequirements": ["TLS for DICOM network communication", "De-identification of DICOM headers for research", "Access controls on PACS systems"] },
+    { "standard": "HL7 v2", "description": "Legacy health message format still widely used in Malaysia", "securityRequirements": ["VPN or TLS for HL7v2 transport", "Message-level encryption for sensitive segments", "Interface engine security hardening"] }
+  ],
+  "sourceType": "constructed-indicative"
+}

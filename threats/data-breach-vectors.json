@@ -1,0 +1,17 @@
+{
+  "_meta": { "title": "Data Breach Vectors", "sourceType": "constructed-indicative" },
+  "vectors": [
+    { "vector": "Unencrypted Data at Rest", "description": "Sensitive data stored without encryption is exposed when storage media is stolen, improperly disposed, or accessed by unauthorized parties.", "prevalence": "High", "mitigations": ["EART-01", "EART-02", "EART-04"] },
+    { "vector": "Unencrypted Data in Transit", "description": "Data transmitted over unencrypted channels (HTTP, FTP, Telnet) can be intercepted via man-in-the-middle attacks or network sniffing.", "prevalence": "Medium", "mitigations": ["EITR-01", "EITR-03", "EITR-04"] },
+    { "vector": "SQL Injection", "description": "Attackers exploit SQL injection vulnerabilities to extract database contents, bypassing application-level access controls.", "prevalence": "High", "mitigations": ["DBSC-04", "DBSC-02", "DBSC-05"] },
+    { "vector": "Insider Data Exfiltration", "description": "Authorized users intentionally or accidentally transfer sensitive data outside the organization via email, USB, cloud storage, or printing.", "prevalence": "High", "mitigations": ["DLPS-01", "DLPS-02", "DLPS-04"] },
+    { "vector": "Cloud Misconfiguration", "description": "Exposed cloud storage (S3 buckets, Azure blobs) or misconfigured API endpoints allowing unauthorized data access.", "prevalence": "High", "mitigations": ["EART-04", "DLPS-03", "DCLS-04"] },
+    { "vector": "Credential Theft / Compromised Accounts", "description": "Stolen credentials used to access databases and data stores directly, bypassing application controls.", "prevalence": "High", "mitigations": ["DBSC-02", "DBSC-01", "KMGT-03"] },
+    { "vector": "Third-Party / Supply Chain Breach", "description": "Data exposed through compromised vendors, partners, or service providers with access to organizational data.", "prevalence": "Medium", "mitigations": ["EITR-04", "DMTK-03", "DCLS-03"] },
+    { "vector": "Ransomware Data Theft", "description": "Modern ransomware exfiltrates data before encrypting it (double extortion), selling or publishing stolen data.", "prevalence": "High", "mitigations": ["BKRC-02", "BKRC-05", "DLPS-01"] },
+    { "vector": "Improper Data Disposal", "description": "Sensitive data on decommissioned hardware, returned leased equipment, or discarded documents is recovered by adversaries.", "prevalence": "Medium", "mitigations": ["SDSP-01", "SDSP-02", "SDSP-03"] },
+    { "vector": "API Data Exposure", "description": "APIs returning excessive data (over-fetching), missing authentication, or lacking rate limiting expose sensitive data.", "prevalence": "High", "mitigations": ["EITR-04", "DMTK-02", "DBSC-02"] },
+    { "vector": "Backup Data Exposure", "description": "Unencrypted or poorly protected backup copies stored in accessible locations.", "prevalence": "Medium", "mitigations": ["BKRC-01", "BKRC-03", "KMGT-03"] },
+    { "vector": "Test/Dev Data Leakage", "description": "Production data used in development or testing environments with weaker security controls.", "prevalence": "Medium", "mitigations": ["DMTK-01", "DMTK-04", "DBSC-03"] }
+  ]
+}

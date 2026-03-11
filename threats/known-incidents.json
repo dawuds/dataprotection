@@ -1,0 +1,121 @@
+{
+  "_meta": {
+    "title": "Known Data Breach Incidents",
+    "sourceType": "constructed-indicative",
+    "note": "All incidents are real and publicly documented. Details sourced from public breach reports, SEC filings, and regulatory disclosures."
+  },
+  "incidents": [
+    {
+      "name": "Equifax Data Breach",
+      "year": 2017,
+      "organization": "Equifax",
+      "sector": "Financial Services (Credit Bureau)",
+      "recordsAffected": "147 million",
+      "dataExposed": "Names, SSNs, dates of birth, addresses, driver's license numbers, credit card numbers (209,000)",
+      "rootCause": "Unpatched Apache Struts vulnerability (CVE-2017-5638) exploited to access databases. Data stored unencrypted in some systems.",
+      "vector": "Web application vulnerability (SQL injection via Struts)",
+      "failedControls": ["Vulnerability management (patching)", "Network segmentation", "Encryption at rest for sensitive data", "Data access monitoring"],
+      "financialImpact": "$1.4 billion total cost, $700 million FTC settlement",
+      "lessonsLearned": ["Encrypt all PII at rest, not just PCI-scoped data", "Implement database activity monitoring", "Patch critical vulnerabilities within 48 hours", "Segment databases containing sensitive data"],
+      "relevantControls": ["EART-02", "DBSC-01", "DBSC-04", "DCLS-04"]
+    },
+    {
+      "name": "Capital One Data Breach",
+      "year": 2019,
+      "organization": "Capital One",
+      "sector": "Financial Services (Banking)",
+      "recordsAffected": "106 million",
+      "dataExposed": "Names, addresses, credit scores, credit limits, balances, SSNs (140,000), bank account numbers (80,000)",
+      "rootCause": "Misconfigured WAF on AWS allowed SSRF attack to access IAM role credentials, then used to access S3 buckets containing customer data.",
+      "vector": "Cloud misconfiguration (SSRF + overly permissive IAM role)",
+      "failedControls": ["Cloud configuration management", "IAM least privilege", "DLP for cloud storage", "Data classification enforcement"],
+      "financialImpact": "$80 million OCC fine, $190 million settlement",
+      "lessonsLearned": ["Implement least-privilege IAM for cloud services", "Deploy cloud DLP to detect mass data access", "Encrypt sensitive data with customer-managed keys", "Monitor for anomalous cloud API calls"],
+      "relevantControls": ["EART-04", "DLPS-03", "KMGT-06", "DCLS-04"]
+    },
+    {
+      "name": "Marriott International Data Breach",
+      "year": 2018,
+      "organization": "Marriott International (Starwood)",
+      "sector": "Hospitality",
+      "recordsAffected": "500 million",
+      "dataExposed": "Names, addresses, phone numbers, email addresses, passport numbers (5.25 million), encrypted payment card numbers, travel history",
+      "rootCause": "Starwood reservation system compromised since 2014, undetected through Marriott acquisition. Attackers had persistent access to database.",
+      "vector": "Advanced persistent threat with database access",
+      "failedControls": ["M&A security due diligence", "Database activity monitoring", "Encryption key management", "Data retention (excessive data stored)"],
+      "financialImpact": "$124 million GDPR fine (reduced from $28M), class action settlements",
+      "lessonsLearned": ["Conduct thorough security assessment during M&A", "Implement database activity monitoring for anomaly detection", "Encrypt all PII fields at column level", "Enforce data retention policies to minimize exposure"],
+      "relevantControls": ["DBSC-01", "DBSC-05", "DCLS-04", "SDSP-05"]
+    },
+    {
+      "name": "Yahoo Data Breaches",
+      "year": 2013,
+      "organization": "Yahoo",
+      "sector": "Technology",
+      "recordsAffected": "3 billion (all accounts)",
+      "dataExposed": "Names, email addresses, dates of birth, telephone numbers, hashed passwords (MD5), security questions/answers",
+      "rootCause": "State-sponsored attackers accessed user database. Weak password hashing (MD5 without salt for many accounts). Second breach in 2014 affected 500 million accounts.",
+      "vector": "Credential theft and database access",
+      "failedControls": ["Strong password hashing (bcrypt/Argon2)", "Database access controls", "Security monitoring and detection", "Timely breach disclosure"],
+      "financialImpact": "$350 million reduction in Verizon acquisition price, $117.5 million settlement",
+      "lessonsLearned": ["Use modern password hashing (bcrypt, Argon2)", "Encrypt sensitive fields beyond just passwords", "Implement real-time database access monitoring", "Establish breach detection and response capabilities"],
+      "relevantControls": ["EART-02", "DBSC-01", "DBSC-02", "DLPS-05"]
+    },
+    {
+      "name": "T-Mobile Data Breach",
+      "year": 2023,
+      "organization": "T-Mobile",
+      "sector": "Telecommunications",
+      "recordsAffected": "37 million",
+      "dataExposed": "Names, billing addresses, email addresses, phone numbers, dates of birth, T-Mobile account numbers",
+      "rootCause": "Attacker exploited a single API to access customer data over approximately six weeks before detection. API returned excessive data.",
+      "vector": "API data exposure (BOLA/IDOR vulnerability)",
+      "failedControls": ["API security (input validation, rate limiting)", "API data minimization", "API monitoring and anomaly detection", "DLP for API channels"],
+      "financialImpact": "Ongoing regulatory scrutiny, $350 million settlement from 2021 breach, additional costs",
+      "lessonsLearned": ["Implement API rate limiting and anomaly detection", "Apply data minimization to API responses", "Deploy API-specific DLP monitoring", "Conduct regular API security testing"],
+      "relevantControls": ["EITR-04", "DLPS-01", "DMTK-02", "DBSC-01"]
+    },
+    {
+      "name": "MOVEit Transfer Breach",
+      "year": 2023,
+      "organization": "Progress Software (MOVEit) — affecting 2,500+ organizations",
+      "sector": "Cross-sector (Supply Chain)",
+      "recordsAffected": "94+ million across all victims",
+      "dataExposed": "Varied by organization — employee data, financial records, healthcare data, government records",
+      "rootCause": "Zero-day SQL injection vulnerability (CVE-2023-34362) in MOVEit Transfer file transfer software exploited by Cl0p ransomware group.",
+      "vector": "Supply chain attack via zero-day SQL injection in file transfer software",
+      "failedControls": ["Vendor security assessment", "File transfer encryption (end-to-end)", "Network segmentation for file transfer systems", "Data minimization in transferred files"],
+      "financialImpact": "Estimated $10+ billion across all affected organizations",
+      "lessonsLearned": ["Assess security of file transfer infrastructure", "Encrypt files before transfer (client-side encryption)", "Monitor file transfer systems for anomalous activity", "Implement zero-trust for file transfer networks"],
+      "relevantControls": ["EART-03", "EITR-01", "DBSC-04", "DLPS-01"]
+    },
+    {
+      "name": "Optus Data Breach",
+      "year": 2022,
+      "organization": "Optus (Singtel subsidiary)",
+      "sector": "Telecommunications",
+      "recordsAffected": "9.8 million",
+      "dataExposed": "Names, dates of birth, phone numbers, email addresses, physical addresses, ID document numbers (passport, driver's license, Medicare)",
+      "rootCause": "Unauthenticated API endpoint exposed customer data. No authentication required to access the API.",
+      "vector": "Unauthenticated API exposure",
+      "failedControls": ["API authentication enforcement", "API security testing", "Data minimization in API responses", "Network boundary controls"],
+      "financialImpact": "A$140 million class action, regulatory investigation by OAIC",
+      "lessonsLearned": ["Enforce authentication on all APIs", "Conduct regular API security assessments", "Implement API gateway with authentication enforcement", "Minimize data returned by APIs"],
+      "relevantControls": ["EITR-04", "DBSC-02", "DMTK-02", "DCLS-04"]
+    },
+    {
+      "name": "Medibank Data Breach",
+      "year": 2022,
+      "organization": "Medibank",
+      "sector": "Healthcare Insurance",
+      "recordsAffected": "9.7 million",
+      "dataExposed": "Names, dates of birth, Medicare numbers, health claims data including diagnosis codes and procedures",
+      "rootCause": "Stolen contractor credentials used to access internal systems and extract customer and health claims data. REvil-linked attackers published data on dark web after ransom refusal.",
+      "vector": "Credential theft (stolen contractor VPN credentials)",
+      "failedControls": ["Multi-factor authentication for remote access", "Privileged access management for contractors", "Database access monitoring", "DLP for detecting bulk data extraction"],
+      "financialImpact": "A$46.4 million direct costs, significant reputational damage",
+      "lessonsLearned": ["Enforce MFA on all remote access including contractors", "Implement PAM for third-party access", "Deploy DAM to detect mass data extraction", "Classify and encrypt health data at column level"],
+      "relevantControls": ["DBSC-01", "DBSC-02", "DLPS-01", "EART-02"]
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "_meta": { "title": "Data Protection to ISO 27001:2022 Cross-Reference", "sourceType": "constructed-indicative" },
+  "mappings": [
+    { "dpDomain": "DCLS", "iso27001Controls": ["A.5.9", "A.5.10", "A.5.12", "A.5.13", "A.5.14"], "description": "Data classification maps to information classification and labeling controls" },
+    { "dpDomain": "EART", "iso27001Controls": ["A.8.24"], "description": "Encryption at rest maps to use of cryptography" },
+    { "dpDomain": "EITR", "iso27001Controls": ["A.8.20", "A.8.21", "A.8.24"], "description": "Encryption in transit maps to network security and cryptography" },
+    { "dpDomain": "EIUS", "iso27001Controls": ["A.8.24"], "description": "Encryption in use maps to use of cryptography" },
+    { "dpDomain": "DLPS", "iso27001Controls": ["A.8.12"], "description": "DLP maps directly to data leakage prevention control" },
+    { "dpDomain": "KMGT", "iso27001Controls": ["A.8.24"], "description": "Key management is covered under use of cryptography" },
+    { "dpDomain": "BKRC", "iso27001Controls": ["A.8.13", "A.8.14"], "description": "Backup and recovery maps to information backup and redundancy" },
+    { "dpDomain": "DBSC", "iso27001Controls": ["A.8.3", "A.8.15", "A.8.16"], "description": "Database security maps to access restriction, logging, and monitoring" },
+    { "dpDomain": "DMTK", "iso27001Controls": ["A.8.11", "A.8.33"], "description": "Data masking maps directly to data masking and test information controls" },
+    { "dpDomain": "SDSP", "iso27001Controls": ["A.8.10", "A.5.33"], "description": "Secure disposal maps to information deletion and record retention" }
+  ]
+}
