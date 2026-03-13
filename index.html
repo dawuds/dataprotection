@@ -16,18 +16,18 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="header" id="site-header">
+  <header class="header" id="site-header" role="banner">
     <div class="header-inner">
       <a href="#" class="header-brand" title="Home">
         <h1>Data Protection Explorer</h1>
         <span class="header-subtitle">Technical Data Protection Controls</span>
       </a>
       <div class="header-search">
-        <input type="text" id="search-input" placeholder="Search controls, technologies, frameworks..." aria-label="Search data protection controls" autocomplete="off">
+        <input type="text" id="search-input" placeholder="Search controls, technologies, frameworks..." aria-label="Search compliance data" autocomplete="off">
       </div>
     </div>
   </header>
-  <nav class="nav" id="site-nav">
+  <nav class="nav" id="site-nav" role="navigation" aria-label="Main navigation">
     <div class="nav-inner">
       <a href="#overview" class="nav-link active" data-view="overview">Overview</a>
       <a href="#framework" class="nav-link" data-view="framework">Framework</a>
@@ -41,13 +41,14 @@
       </div>
     </div>
   </nav>
-  <div id="app">
+  <main id="app" role="main">
     <noscript>This application requires JavaScript.</noscript>
     <div class="loading">
       <div class="spinner"></div>
       <span>Loading data protection controls...</span>
     </div>
-  </div>
+  </main>
+  <footer role="contentinfo"></footer>
   <script src="app.js"></script>
 </body>
 </html>
