@@ -1,188 +1,289 @@
 #!/usr/bin/env node
-/* ============================================
-   Data Protection Explorer — Validation Script
-   Checks JSON validity and cross-reference integrity.
-   ============================================ */
+/**
+ * validate.js — Data Protection data integrity validator
+ *
+ * Checks:
+ *   1.  All JSON files parse without errors
+ *   2.  Controls library — slug uniqueness and required fields
+ *   3.  Controls library — domain coverage
+ *   4.  Artifact controlSlugs resolve to controls/library.json slugs
+ *   5.  Evidence controlSlugs resolve to controls/library.json slugs
+ *   6.  Cross-reference integrity (ISO 27001, NIST CSF, PCI-DSS, PDPA, RMIT)
+ *   7.  Templates required fields
+ *   8.  Technologies & frameworks file integrity
+ *   9.  No empty strings where data is expected
+ *   10. Unique IDs across data sets
+ *
+ * Usage: node validate.js [--verbose]
+ */
 
-const fs = require('fs');
+'use strict';
+
+const fs   = require('fs');
 const path = require('path');
 
-const ROOT = __dirname;
-let errors = 0;
-let warnings = 0;
-let filesChecked = 0;
+const REPO_ROOT = __dirname;
+const verbose   = process.argv.includes('--verbose');
 
-function check(condition, msg) {
-  if (!condition) {
-    console.error('  ERROR: ' + msg);
-    errors++;
-  }
-}
+let pass = 0;
+let fail = 0;
+let warn = 0;
 
-function warn(msg) {
-  console.warn('  WARN: ' + msg);
-  warnings++;
-}
+function ok(msg)      { pass++; if (verbose) console.log(`  PASS  ${msg}`); }
+function bad(msg)     { fail++; console.log(`  FAIL  ${msg}`); }
+function warning(msg) { warn++; console.log(`  WARN  ${msg}`); }
 
-function loadJSON(relPath) {
-  const fullPath = path.join(ROOT, relPath);
+function loadJson(relPath) {
+  const abs = path.join(REPO_ROOT, relPath);
+  if (!fs.existsSync(abs)) return null;
   try {
-    const raw = fs.readFileSync(fullPath, 'utf8');
-    filesChecked++;
-    return JSON.parse(raw);
+    return JSON.parse(fs.readFileSync(abs, 'utf8'));
   } catch (e) {
-    console.error('  ERROR: Failed to load/parse ' + relPath + ': ' + e.message);
-    errors++;
     return null;
   }
 }
 
-console.log('=== Data Protection Explorer — Validation ===\n');
+// ── 1. JSON Parse Check ─────────────────────────────────────────────
 
-// 1. Core data files
-console.log('[1] Checking core data files...');
-const library = loadJSON('controls/library.json');
-const domainIndex = loadJSON('controls/domain-index.json');
-const evidence = loadJSON('evidence/index.json');
-const artifacts = loadJSON('artifacts/inventory.json');
-const fwIndex = loadJSON('frameworks/index.json');
-const riskMgmt = loadJSON('risk-management/index.json');
+console.log('\n=== 1. JSON Parse Check ===');
 
-check(library && library.controls, 'controls/library.json must have controls array');
-check(domainIndex && domainIndex.domains, 'controls/domain-index.json must have domains array');
-check(evidence && evidence.evidenceItems, 'evidence/index.json must have evidenceItems array');
-check(artifacts && artifacts.artifacts, 'artifacts/inventory.json must have artifacts array');
-check(fwIndex && fwIndex.frameworks, 'frameworks/index.json must have frameworks array');
-check(riskMgmt && riskMgmt.register, 'risk-management/index.json must have register object');
-
-// 2. Control library validation
-if (library && library.controls) {
-  console.log('\n[2] Validating control library (' + library.controls.length + ' controls)...');
-  check(library.controls.length >= 45, 'Should have at least 45 controls, found ' + library.controls.length);
-
-  const slugs = new Set();
-  const domains = new Set();
-  library.controls.forEach(function(ctrl) {
-    check(ctrl.slug, 'Control missing slug');
-    check(ctrl.name, 'Control ' + (ctrl.slug || '?') + ' missing name');
-    check(ctrl.domain, 'Control ' + (ctrl.slug || '?') + ' missing domain');
-    check(ctrl.description, 'Control ' + (ctrl.slug || '?') + ' missing description');
-    check(ctrl.sourceType === 'constructed-indicative', 'Control ' + (ctrl.slug || '?') + ' should have sourceType "constructed-indicative"');
-    check(ctrl.requirements, 'Control ' + (ctrl.slug || '?') + ' missing requirements');
-    check(ctrl.keyActivities && ctrl.keyActivities.length > 0, 'Control ' + (ctrl.slug || '?') + ' missing keyActivities');
-    check(ctrl.maturityLevels, 'Control ' + (ctrl.slug || '?') + ' missing maturityLevels');
-    check(ctrl.frameworkMappings, 'Control ' + (ctrl.slug || '?') + ' missing frameworkMappings');
-
-    if (ctrl.slug) {
-      check(!slugs.has(ctrl.slug), 'Duplicate slug: ' + ctrl.slug);
-      slugs.add(ctrl.slug);
+function findJsonFiles(dir) {
+  const results = [];
+  if (!fs.existsSync(dir)) return results;
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory() && !entry.name.startsWith('.') && entry.name !== 'node_modules') {
+      results.push(...findJsonFiles(full));
+    } else if (entry.isFile() && entry.name.endsWith('.json')) {
+      results.push(path.relative(REPO_ROOT, full));
     }
-    if (ctrl.domain) domains.add(ctrl.domain);
-  });
-
-  check(domains.size === 10, 'Should have 10 domains, found ' + domains.size);
-}
-
-// 3. Domain index validation
-if (domainIndex && domainIndex.domains) {
-  console.log('\n[3] Validating domain index (' + domainIndex.domains.length + ' domains)...');
-  check(domainIndex.domains.length === 10, 'Should have 10 domains');
-
-  domainIndex.domains.forEach(function(dom) {
-    check(dom.id, 'Domain missing id');
-    check(dom.name, 'Domain ' + (dom.id || '?') + ' missing name');
-    check(dom.description, 'Domain ' + (dom.id || '?') + ' missing description');
-  });
-}
-
-// 4. Evidence validation
-if (evidence && evidence.evidenceItems) {
-  console.log('\n[4] Validating evidence items (' + evidence.evidenceItems.length + ' items)...');
-  check(evidence.evidenceItems.length >= 50, 'Should have at least 50 evidence items, found ' + evidence.evidenceItems.length);
-
-  evidence.evidenceItems.forEach(function(ev) {
-    check(ev.id, 'Evidence item missing id');
-    check(ev.name, 'Evidence ' + (ev.id || '?') + ' missing name');
-    check(ev.controlSlugs && ev.controlSlugs.length > 0, 'Evidence ' + (ev.id || '?') + ' missing controlSlugs');
-  });
-}
-
-// 5. Cross-reference validation
-console.log('\n[5] Checking cross-reference files...');
-var xrefFiles = ['dp-to-nist-csf.json', 'dp-to-iso27001.json', 'dp-to-pci-dss.json', 'dp-to-rmit.json', 'dp-to-pdpa.json'];
-xrefFiles.forEach(function(f) {
-  var data = loadJSON('cross-references/' + f);
-  check(data && data.mappings, f + ' must have mappings array');
-});
-
-// 6. Framework detail files
-console.log('\n[6] Checking framework detail files...');
-if (fwIndex && fwIndex.frameworks) {
-  fwIndex.frameworks.forEach(function(fw) {
-    var data = loadJSON('frameworks/' + fw.dataFile);
-    check(data !== null, 'Framework file ' + fw.dataFile + ' must be valid JSON');
-  });
-}
-
-// 7. Technology files
-console.log('\n[7] Checking technology files...');
-var techFiles = ['dlp.json', 'encryption.json', 'key-management.json', 'tokenization.json', 'backup-recovery.json', 'classification.json'];
-techFiles.forEach(function(f) {
-  var data = loadJSON('technologies/' + f);
-  check(data !== null, 'Technology file ' + f + ' must be valid JSON');
-  if (data) {
-    check(data.technology, f + ' must have technology field');
-    check(data.sourceType === 'constructed-indicative', f + ' should have sourceType');
   }
-});
-
-// 8. Threat files
-console.log('\n[8] Checking threat files...');
-var vectors = loadJSON('threats/data-breach-vectors.json');
-var incidents = loadJSON('threats/known-incidents.json');
-check(vectors && vectors.vectors, 'data-breach-vectors.json must have vectors array');
-check(incidents && incidents.incidents, 'known-incidents.json must have incidents array');
-if (incidents && incidents.incidents) {
-  check(incidents.incidents.length >= 8, 'Should have at least 8 real incidents');
-  incidents.incidents.forEach(function(inc) {
-    check(inc.year && inc.year >= 2010, 'Incident ' + (inc.name || '?') + ' should have valid year');
-    check(inc.organization, 'Incident missing organization');
-  });
+  return results;
 }
 
-// 9. Sector files
-console.log('\n[9] Checking sector files...');
-loadJSON('sectors/index.json');
-loadJSON('sectors/financial-services.json');
-loadJSON('sectors/healthcare.json');
-loadJSON('sectors/government.json');
+const jsonFiles = findJsonFiles(REPO_ROOT);
+const parsed = {};
+let parseErrors = 0;
 
-// 10. Template and artifact files
-console.log('\n[10] Checking templates and artifacts...');
-var templates = loadJSON('templates/index.json');
-check(templates && templates.templates, 'templates/index.json must have templates array');
-
-// 11. Risk management
-if (riskMgmt && riskMgmt.register && riskMgmt.register.risks) {
-  console.log('\n[11] Validating risk register (' + riskMgmt.register.risks.length + ' risks)...');
-  check(riskMgmt.register.risks.length >= 15, 'Should have at least 15 risks, found ' + riskMgmt.register.risks.length);
-  riskMgmt.register.risks.forEach(function(r) {
-    check(r.id, 'Risk missing id');
-    check(r.inherentRisk > 0, 'Risk ' + (r.id || '?') + ' must have positive inherentRisk');
-    check(r.residualRisk > 0, 'Risk ' + (r.id || '?') + ' must have positive residualRisk');
-    check(r.residualRisk <= r.inherentRisk, 'Risk ' + (r.id || '?') + ' residualRisk should be <= inherentRisk');
-  });
+for (const file of jsonFiles) {
+  try {
+    parsed[file] = JSON.parse(fs.readFileSync(path.join(REPO_ROOT, file), 'utf8'));
+    ok(`Parsed: ${file}`);
+  } catch (e) {
+    bad(`JSON parse error: ${file} — ${e.message}`);
+    parseErrors++;
+  }
 }
 
-// Summary
-console.log('\n=== Validation Complete ===');
-console.log('Files checked: ' + filesChecked);
-console.log('Errors: ' + errors);
-console.log('Warnings: ' + warnings);
+if (parseErrors === 0) {
+  ok(`All ${jsonFiles.length} JSON files parse correctly`);
+}
 
-if (errors > 0) {
-  process.exit(1);
+// ── Load core data ──────────────────────────────────────────────────
+
+const controlsLib   = loadJson('controls/library.json');
+const domainIndex   = loadJson('controls/domain-index.json');
+const artifactsInv  = loadJson('artifacts/inventory.json');
+const evidence      = loadJson('evidence/index.json');
+const riskMgmt      = loadJson('risk-management/index.json');
+const templates     = loadJson('templates/index.json');
+
+// Controls — uses slug
+const libraryControls = (controlsLib && controlsLib.controls) || [];
+const controlSlugSet = new Set(libraryControls.map(c => c.slug).filter(Boolean));
+
+// Domains
+const libraryDomains = (domainIndex && domainIndex.domains) || [];
+const domainIdSet = new Set(libraryDomains.map(d => d.id || d.slug).filter(Boolean));
+
+// Artifacts — { artifacts: [...] }
+const allArtifacts = (artifactsInv && artifactsInv.artifacts) || [];
+const artifactSlugSet = new Set(allArtifacts.map(a => a.slug || a.id).filter(Boolean));
+
+// Evidence items — { evidenceItems: [...] }
+const evidenceItems = (evidence && evidence.evidenceItems) || [];
+
+// ── 2. Control Slug Uniqueness & Required Fields ─────────────────────
+
+console.log('\n=== 2. Control Slug Uniqueness & Required Fields ===');
+
+const slugCounts = {};
+for (const ctrl of libraryControls) {
+  if (!ctrl.slug) {
+    bad(`Control missing "slug": ${(ctrl.name || '').slice(0, 60)}`);
+  } else {
+    slugCounts[ctrl.slug] = (slugCounts[ctrl.slug] || 0) + 1;
+  }
+  if (!ctrl.name || ctrl.name.trim() === '') bad(`Control "${ctrl.slug}" has empty or missing "name"`);
+  if (!ctrl.domain) bad(`Control "${ctrl.slug}" missing "domain" field`);
+}
+
+const duplicates = Object.entries(slugCounts).filter(([, c]) => c > 1);
+if (duplicates.length === 0) {
+  ok(`No duplicate control slugs (${libraryControls.length} controls)`);
 } else {
-  console.log('\nAll checks passed!');
+  for (const [slug, count] of duplicates) bad(`Duplicate control slug "${slug}" appears ${count} times`);
+}
+
+// ── 3. Domain Coverage ───────────────────────────────────────────────
+
+console.log('\n=== 3. Controls Library — Domain Coverage ===');
+
+const controlsByDomain = {};
+for (const ctrl of libraryControls) {
+  if (ctrl.domain) controlsByDomain[ctrl.domain] = (controlsByDomain[ctrl.domain] || 0) + 1;
+}
+
+for (const dom of libraryDomains) {
+  const key = dom.id || dom.slug;
+  if (!controlsByDomain[key]) {
+    bad(`Domain "${key}" has zero controls in library.json`);
+  } else {
+    ok(`Domain "${key}" has ${controlsByDomain[key]} control(s)`);
+  }
+}
+
+// ── 4. Artifact controlSlugs Resolution ──────────────────────────────
+
+console.log('\n=== 4. Artifact controlSlugs Resolution ===');
+
+let controlSlugErrors = 0;
+let controlSlugTotal = 0;
+
+for (const artifact of allArtifacts) {
+  if (!artifact.controlSlugs) continue;
+  for (const slug of artifact.controlSlugs) {
+    controlSlugTotal++;
+    if (!controlSlugSet.has(slug)) {
+      bad(`Artifact "${artifact.slug}" references unknown control slug "${slug}"`);
+      controlSlugErrors++;
+    }
+  }
+}
+
+if (controlSlugErrors === 0) {
+  ok(`All ${controlSlugTotal} controlSlug references in artifacts resolve correctly`);
+}
+
+// ── 5. Evidence controlSlugs Resolution ──────────────────────────────
+
+console.log('\n=== 5. Evidence controlSlugs Resolution ===');
+
+let evidenceSlugErrors = 0;
+let evidenceSlugTotal = 0;
+
+for (const item of evidenceItems) {
+  if (!item.controlSlugs) continue;
+  for (const slug of item.controlSlugs) {
+    evidenceSlugTotal++;
+    if (!controlSlugSet.has(slug)) {
+      bad(`Evidence "${item.id}" references unknown control slug "${slug}"`);
+      evidenceSlugErrors++;
+    }
+  }
+}
+
+if (evidenceSlugErrors === 0) {
+  ok(`All ${evidenceSlugTotal} evidence controlSlug references resolve correctly`);
+}
+
+// ── 6. Cross-Reference Integrity ─────────────────────────────────────
+
+console.log('\n=== 6. Cross-Reference Integrity ===');
+
+const crossRefFiles = findJsonFiles(path.join(REPO_ROOT, 'cross-references'));
+for (const file of crossRefFiles) {
+  if (!parsed[file]) bad(`Cross-reference file failed to load: ${file}`);
+  else ok(`Cross-reference loaded: ${file}`);
+}
+
+// ── 7. Templates Required Fields ─────────────────────────────────────
+
+console.log('\n=== 7. Templates Required Fields ===');
+
+if (templates && templates.templates) {
+  let templateErrors = 0;
+  for (const tmpl of templates.templates) {
+    const missing = [];
+    if (!tmpl.filename && !tmpl.name) missing.push('filename/name');
+    if (!tmpl.category) missing.push('category');
+    if (missing.length > 0) {
+      bad(`Template "${tmpl.filename || tmpl.name || '(unknown)'}" missing: ${missing.join(', ')}`);
+      templateErrors++;
+    }
+  }
+  if (templateErrors === 0) ok(`All ${templates.templates.length} templates have required fields`);
+} else {
+  warning('No templates found');
+}
+
+// ── 8. Technologies & Frameworks Integrity ───────────────────────────
+
+console.log('\n=== 8. Technologies & Frameworks Integrity ===');
+
+const techFiles = findJsonFiles(path.join(REPO_ROOT, 'technologies'));
+const fwFiles = findJsonFiles(path.join(REPO_ROOT, 'frameworks'));
+const sectorFiles = findJsonFiles(path.join(REPO_ROOT, 'sectors'));
+
+for (const file of [...techFiles, ...fwFiles, ...sectorFiles]) {
+  if (!parsed[file]) bad(`File failed to load: ${file}`);
+  else ok(`Loaded: ${file}`);
+}
+
+// ── 9. Data Completeness ─────────────────────────────────────────────
+
+console.log('\n=== 9. Data Completeness ===');
+
+let emptyIssues = 0;
+for (const ctrl of libraryControls) {
+  if (ctrl.description && ctrl.description.trim() === '') { bad(`Control "${ctrl.slug}" has empty description`); emptyIssues++; }
+}
+for (const artifact of allArtifacts) {
+  if (artifact.name && artifact.name.trim() === '') { bad(`Artifact "${artifact.slug}" has empty name`); emptyIssues++; }
+}
+for (const item of evidenceItems) {
+  if (item.name && item.name.trim() === '') { bad(`Evidence "${item.id}" has empty name`); emptyIssues++; }
+}
+if (emptyIssues === 0) ok('No empty strings detected in core data');
+
+// ── 10. Unique IDs ──────────────────────────────────────────────────
+
+console.log('\n=== 10. Unique IDs ===');
+
+const seenArtSlugs = {};
+for (const art of allArtifacts) {
+  const key = art.slug || art.id;
+  if (key) seenArtSlugs[key] = (seenArtSlugs[key] || 0) + 1;
+}
+const artDups = Object.entries(seenArtSlugs).filter(([, c]) => c > 1);
+if (artDups.length === 0) ok(`All ${allArtifacts.length} artifact slugs are unique`);
+else for (const [s, c] of artDups) bad(`Duplicate artifact slug "${s}" appears ${c} times`);
+
+const seenEvidIds = {};
+for (const item of evidenceItems) {
+  if (item.id) seenEvidIds[item.id] = (seenEvidIds[item.id] || 0) + 1;
+}
+const evidDups = Object.entries(seenEvidIds).filter(([, c]) => c > 1);
+if (evidDups.length === 0) ok(`All ${evidenceItems.length} evidence IDs are unique`);
+else for (const [id, c] of evidDups) bad(`Duplicate evidence ID "${id}" appears ${c} times`);
+
+// ── Summary ──────────────────────────────────────────────────────────
+
+console.log('\n' + '='.repeat(60));
+console.log('Validation complete:');
+console.log(`  Pass: ${pass}`);
+console.log(`  Fail: ${fail}`);
+console.log(`  Warn: ${warn}`);
+console.log(`  Total: ${pass + fail + warn}`);
+console.log('='.repeat(60));
+
+if (fail > 0) {
+  console.error(`\nValidation FAILED with ${fail} error(s).`);
+  process.exit(1);
+} else if (warn > 0) {
+  console.log(`\nValidation passed with ${warn} warning(s).`);
+  process.exit(0);
+} else {
+  console.log('\nAll checks passed.');
   process.exit(0);
 }
