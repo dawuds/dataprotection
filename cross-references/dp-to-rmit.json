@@ -1,5 +1,5 @@
 {
-  "_meta": { "title": "Data Protection to BNM RMiT Cross-Reference", "sourceType": "constructed-indicative" },
+  "_meta": { "title": "Data Protection to BNM RMiT Cross-Reference", "sourceType": "constructed-indicative", "_mappingType": "clause-level", "_mappingNote": "References use RMiT section and clause numbers (e.g. S10.4, S10.46) which map to regulatory text paragraphs, not to individual control slugs in the RMIT controls/library.json. Closest slug-level equivalents: S10.4-S10.5 -> technology-risk-management-framework; S10.46-S10.48 -> cryptographic-controls, key-and-certificate-management; S10.50 -> cloud-risk-assessment; S10.52 -> data-loss-prevention; S10.55 -> outsourcing-notification; S10.62-S10.65 -> backup-management, cloud-data-residency, cloud-portability-and-exit." },
   "mappings": [
     { "dpDomain": "DCLS", "rmitSections": ["S10.4", "S10.5"], "description": "Data classification and handling based on sensitivity as required by RMiT" },
     { "dpDomain": "EART", "rmitSections": ["S10.46", "S10.47"], "description": "Encryption of confidential data at rest including in cloud environments" },
